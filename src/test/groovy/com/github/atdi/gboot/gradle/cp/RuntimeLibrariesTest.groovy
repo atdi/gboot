@@ -21,9 +21,9 @@ class RuntimeLibrariesTest extends GroovyTestCase {
 
     }
 
-    void testRuntimeLibraries() {
+    void testGetLibraries() {
         Set<ResolvedArtifact> libs = libraries.getLibraries("compile")
-        assertEquals(1, libs.size())
+        assertEquals(5, libs.size())
     }
 
 
@@ -33,6 +33,9 @@ class RuntimeLibrariesTest extends GroovyTestCase {
                 .build()
         project.apply plugin: 'com.github.atdi.gboot'
         project.apply plugin: 'java'
+        project.repositories {
+            mavenCentral()
+        }
         project.dependencies {
             compile("org.eclipse.jetty:jetty-server:9.2.10.v20150310")
             testCompile("junit:junit:4.12")
