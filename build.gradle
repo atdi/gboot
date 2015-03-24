@@ -1,0 +1,16 @@
+plugins {
+    id 'groovy'
+    id 'jacoco'
+    id 'pl.allegro.tech.build.axion-release' version '1.2.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
