@@ -22,7 +22,7 @@ class RuntimeLibrariesTest extends GroovyTestCase {
     }
 
     void testGetLibraries() {
-        Set<ResolvedArtifact> libs = libraries.getLibraries("compile")
+        Set<ResolvedArtifact> libs = libraries.getLibraries("runtime")
         assertEquals(5, libs.size())
     }
 
