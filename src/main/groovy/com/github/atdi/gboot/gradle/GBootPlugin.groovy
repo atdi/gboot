@@ -15,5 +15,13 @@ class GBootPlugin implements Plugin<Project> {
 
         project.getPlugins().apply(JavaPlugin)
 
+        project.tasks.jar {
+            into('lib') {
+                from project.configurations.runtime
+            }
+        }
+
     }
+
+
 }
