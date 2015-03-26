@@ -1,7 +1,6 @@
 package com.github.atdi.gboot.gradle.cp
 
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ResolvedArtifact
 import org.gradle.testfixtures.ProjectBuilder
 
 /**
@@ -22,8 +21,11 @@ class RuntimeLibrariesTest extends GroovyTestCase {
     }
 
     void testGetLibraries() {
-        Set<ResolvedArtifact> libs = libraries.getLibraries("runtime")
+        Set<String> libs = libraries.getLibraries("runtime")
         assertEquals(5, libs.size())
+        for (String lib : libs) {
+            assertTrue(lib.endsWith('.jar'))
+        }
     }
 
 

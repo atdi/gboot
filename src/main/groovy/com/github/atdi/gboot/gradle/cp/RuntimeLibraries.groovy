@@ -11,14 +11,23 @@ class RuntimeLibraries {
 
     private Project project
 
-    private Set<ResolvedArtifact> getLibraries(String configurationName) {
+    private Set<String> getLibraries(String configurationName) {
+        Set<String> libNames = new HashSet<>();
         Configuration configuration = (configurationName == null ? null : this.project
                 .getConfigurations().findByName(configurationName))
         if (configuration == null) {
             return null;
         }
-        return configuration.getResolvedConfiguration()
-                .getResolvedArtifacts()
+        for (ResolvedArtifact artifact : configuration
+                .getResolvedConfiguration()
+                .getResolvedArtifacts()) {
+            libNames.add(String.format("%s-%s.%s",
+                    artifact.getName(),
+                    artifact.getModuleVersion().getId().getVersion(),
+                    artifact.getExtension()))
+        }
+
+        return libNames
 
     }
 }
