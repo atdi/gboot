@@ -13,7 +13,7 @@ import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 /**
  * Base class for launchers that can start an application with a fully configured
@@ -21,8 +21,6 @@ import java.util.logging.Logger;
  *
  */
 public abstract class Launcher {
-
-    protected Logger logger = Logger.getLogger(Launcher.class.getName());
 
     /**
      * The main runner class. This must be loaded by the created ClassLoader so cannot be
