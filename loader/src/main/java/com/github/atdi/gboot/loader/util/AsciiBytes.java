@@ -154,7 +154,7 @@ public class AsciiBytes {
         if (this == obj) {
             return true;
         }
-        if (obj.getClass().equals(AsciiBytes.class)) {
+        if (this.getClass() == obj.getClass()) {
             AsciiBytes other = (AsciiBytes) obj;
             if (this.length == other.length) {
                 for (int i = 0; i < this.length; i++) {
