@@ -1,2 +1,6 @@
 rootProject.name = 'gboot'
 
+include 'gradle-plugin'
+
+include 'loader'
+
