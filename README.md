@@ -11,4 +11,4 @@ spring-boot but with no additional dependency to any framework
 
 ## License
 
-GBoot is released under the [MIT License](http://opensource.org/licenses/MIT).
+GBoot is released under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
