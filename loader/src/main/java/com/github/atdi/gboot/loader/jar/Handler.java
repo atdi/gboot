@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 /**
  * {@link java.net.URLStreamHandler} for Spring Boot loader {@link GBootJarFile}s.
  *
- * @author Phillip Webb
  * @see GBootJarFile#registerUrlProtocolHandler()
  */
 public class Handler extends URLStreamHandler {
