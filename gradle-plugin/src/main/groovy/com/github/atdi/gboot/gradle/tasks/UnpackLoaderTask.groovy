@@ -28,7 +28,7 @@ class UnpackLoaderTask extends AbstractCopyTask{
                 project.zipTree(it)
             }
         }
-        into "$project.buildDir/classes/main/"
+        into project.buildDir.absolutePath + "/classes/main/"
         exclude {"META-INF"}
     }
 }

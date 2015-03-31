@@ -44,7 +44,7 @@ class GBootPluginTest {
         project.tasks.jar.execute()
         assertTrue(project.tasks.unpackLoader.getState().executed)
         assertTrue(project.tasks.jar.getState().executed)
-        assertTrue(project.file("$project.buildDir/classes/main/lombok").exists())
+        assertTrue(project.file(project.buildDir.absolutePath + "/classes/main/lombok").exists())
 
     }
 
