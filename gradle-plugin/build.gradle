@@ -6,8 +6,6 @@ plugins {
 
 
 dependencies {
-
-    compile project(":loader")
     compile gradleApi()
     compile localGroovy()
 

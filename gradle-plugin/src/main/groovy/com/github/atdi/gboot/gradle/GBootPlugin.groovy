@@ -15,6 +15,8 @@
  */
 package com.github.atdi.gboot.gradle
 
+import com.github.atdi.gboot.gradle.tasks.UnpackLoaderTask
+import org.gradle.api.Task
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -34,7 +36,14 @@ class GBootPlugin implements Plugin<Project> {
 
         createDefaultConfigurations(project)
 
+        Task unpackLoader = project.tasks.create("unpackLoader", UnpackLoaderTask)
+        unpackLoader.description = 'Unpack the jars that are in the loader configuration.'
+
+
         project.tasks.jar {
+
+            dependsOn unpackLoader
+
             doFirst {
                 if (project.gBoot.mainClass == "") {
                     throw new GradleException("Please specify the main class")
