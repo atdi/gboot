@@ -5,5 +5,5 @@ package com.github.atdi.gboot.gradle
  */
 class GBootPluginExtension {
 
-    def mainClass = null
+    def mainClass = ""
 }

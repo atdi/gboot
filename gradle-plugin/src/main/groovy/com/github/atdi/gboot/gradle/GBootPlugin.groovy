@@ -34,7 +34,7 @@ class GBootPlugin implements Plugin<Project> {
 
         project.tasks.jar {
             doFirst {
-                if (project.gBoot.mainClass == null) {
+                if (project.gBoot.mainClass == "") {
                     throw new GradleException("Please specify the main class")
                 }
             }
