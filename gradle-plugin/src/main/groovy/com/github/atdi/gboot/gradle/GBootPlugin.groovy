@@ -32,6 +32,8 @@ class GBootPlugin implements Plugin<Project> {
 
         project.getPlugins().apply(JavaPlugin)
 
+        createDefaultConfigurations(project)
+
         project.tasks.jar {
             doFirst {
                 if (project.gBoot.mainClass == "") {
@@ -43,12 +45,21 @@ class GBootPlugin implements Plugin<Project> {
             }
             entryCompression org.gradle.api.tasks.bundling.ZipEntryCompression.STORED
             manifest {
-                attributes("Main-Class": "com.github.atdi.gboot.loader",
+                attributes("Main-Class": "com.github.atdi.gboot.loader.JarLauncher",
                            "Start-Class": project.gBoot.mainClass)
             }
         }
 
     }
 
+    /**
+     * Create project configurations.
+     * @param project
+     */
+    private createDefaultConfigurations(Project project) {
+        project.configurations {
+            loader
+        }
+    }
 
 }
