@@ -8,9 +8,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-/**
- * Copyright (C) 2015 Aurel Avramescu.
- */
 class GBootPluginTest {
 
     Project project
