@@ -40,11 +40,11 @@ class GBootPlugin implements Plugin<Project> {
 
         project.task("unpackLoader", type: Copy) {
             from {
-                project.configurations.loader.collect {
-                    project.zipTree(it)
+                project.configurations.loader.each {
+                    from project.zipTree(it)
                 }
             }
-            into "$project.buildDir/classes/main/"
+            into project.buildDir.path + "/classes/main/"
             exclude {"META-INF"}
         }
 
