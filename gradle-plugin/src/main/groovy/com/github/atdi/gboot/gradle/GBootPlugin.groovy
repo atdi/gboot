@@ -16,11 +16,13 @@
 package com.github.atdi.gboot.gradle
 
 import com.github.atdi.gboot.gradle.tasks.UnpackLoaderTask
-import org.gradle.api.Task
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.BasePlugin
 import org.gradle.api.plugins.JavaPlugin
+import org.gradle.api.tasks.Copy
+
 
 /**
  * Main plugin class.
@@ -36,13 +38,19 @@ class GBootPlugin implements Plugin<Project> {
 
         createDefaultConfigurations(project)
 
-        Task unpackLoader = project.tasks.create("unpackLoader", UnpackLoaderTask)
-        unpackLoader.description = 'Unpack the jars that are in the loader configuration.'
-
+        project.task("unpackLoader", type: Copy) {
+            from {
+                project.configurations.loader.collect {
+                    project.zipTree(it)
+                }
+            }
+            into "$project.buildDir/classes/main/"
+            exclude {"META-INF"}
+        }
 
         project.tasks.jar {
 
-            dependsOn unpackLoader
+            dependsOn project.tasks.unpackLoader
 
             doFirst {
                 if (project.gBoot.mainClass == "") {

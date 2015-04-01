@@ -17,6 +17,9 @@ class GBootPluginTest {
 
     @Before
     void setUp() {
+        new AntBuilder().copy( todir:"build/tests/test-project" ) {
+            fileset( dir: 'src/test/resources/test-project')
+        }
         project = setupProject()
     }
 
@@ -40,14 +43,12 @@ class GBootPluginTest {
     @Test
     void testJarPassWithLoaderConf() {
         project.gBoot.mainClass = "com.play.Main"
-        project.dependencies {
-            loader 'org.projectlombok:lombok:1.16.2'
-        }
+        project.tasks.compileJava.execute()
         project.tasks.unpackLoader.execute()
         project.tasks.jar.execute()
         assertTrue(project.tasks.unpackLoader.getState().executed)
         assertTrue(project.tasks.jar.getState().executed)
-        assertTrue(project.file("$project.buildDir/classes/main/lombok").exists())
+        assertTrue(project.file("$project.buildDir/classes/main").exists())
 
     }
 
@@ -55,6 +56,7 @@ class GBootPluginTest {
     private setupProject() {
         Project project = ProjectBuilder.builder()
                 .withName('test-project')
+                .withProjectDir(new File('build/tests/test-project'))
                 .build()
         project.apply plugin: 'com.github.atdi.gboot'
         project.apply plugin: 'java'
@@ -62,7 +64,9 @@ class GBootPluginTest {
             mavenLocal()
             mavenCentral()
         }
+
         project.dependencies {
+            loader('org.projectlombok:lombok:1.16.2')
             compile("org.eclipse.jetty:jetty-server:9.2.10.v20150310")
             testCompile("junit:junit:4.12")
         }

@@ -1,12 +1,13 @@
 package com.github.atdi.gboot.gradle.tasks
 
 import org.gradle.api.internal.file.copy.CopyAction
-import org.gradle.api.tasks.AbstractCopyTask
+import org.gradle.api.tasks.Copy
+
 
 /**
  * Copyright (C) 2015 Aurel Avramescu
  */
-class UnpackLoaderTask extends AbstractCopyTask{
+class UnpackLoaderTask extends Copy {
 
     @Override
     protected CopyAction createCopyAction() {
