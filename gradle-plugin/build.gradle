@@ -1,6 +1,7 @@
 plugins {
     id 'groovy'
     id 'jacoco'
+    id 'nu.studer.plugindev' version '1.0.3'
 }
 
 
@@ -8,5 +9,26 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
 
+    jar {
+        into('lib') {
+            from configurations.compile.filter { it.toString().contains("loader") }
+        }
+    }
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+
+plugindev {
+    pluginId 'com.github.atdi.gboot'
+    pluginImplementationClass 'com.github.atdi.gboot.gradle.GBootPlugin'
+    pluginDescription 'Release and version management plugin.'
+    pluginLicenses 'Apache-2.0'
+    pluginTags 'release', 'version'
+    authorId 'atdi'
+    authorName 'Aurel Avramescu'
+    authorEmail 'aurel.avramescu@gmail.com'
+    projectUrl 'https://github.com/atdi/gboot'
+    projectInceptionYear '2014'
+    done()
 }

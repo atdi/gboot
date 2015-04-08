@@ -3,6 +3,7 @@ plugins {
     id 'jacoco'
     id 'pmd'
     id 'findbugs'
+    id "com.jfrog.bintray" version "1.1"
 }
 
 findbugs {
@@ -14,8 +15,6 @@ pmd {
 
 findbugsTest.enabled = false
 pmdTest.enabled = false
-
-sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
