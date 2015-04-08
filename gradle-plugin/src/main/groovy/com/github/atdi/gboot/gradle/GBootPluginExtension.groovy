@@ -17,5 +17,7 @@ package com.github.atdi.gboot.gradle
 
 class GBootPluginExtension {
 
-    def mainClass = ""
+    def mainClass = "com.github.atdi.gboot.loader.JarLauncher"
+
+    def startClass = ""
 }

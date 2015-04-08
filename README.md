@@ -1,6 +1,6 @@
 GBoot
 ==================
-The purpose of this project is create a small gradle plugin similar to
+The purpose of this project is to create a small gradle plugin similar with
 spring-boot but with no additional dependency to any framework
 
 

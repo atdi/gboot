@@ -15,13 +15,13 @@
  */
 package com.github.atdi.gboot.gradle
 
-import com.github.atdi.gboot.gradle.tasks.UnpackLoaderTask
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.BasePlugin
+import org.gradle.api.Task
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.bundling.ZipEntryCompression
 
 
 /**
@@ -38,35 +38,46 @@ class GBootPlugin implements Plugin<Project> {
 
         createDefaultConfigurations(project)
 
-        project.task("unpackLoader", type: Copy) {
-            from {
-                project.configurations.loader.each {
-                    from project.zipTree(it)
-                }
-            }
-            into project.buildDir.path + "/classes/main/"
-            exclude {"META-INF"}
-        }
+        Task unpackLoader = createUnpackLoaderTask(project)
 
+        overrideJarTask(project, unpackLoader)
+
+    }
+
+    private overrideJarTask(Project project, Task unpackLoader) {
         project.tasks.jar {
 
-            dependsOn project.tasks.unpackLoader
+            dependsOn unpackLoader
 
             doFirst {
-                if (project.gBoot.mainClass == "") {
+                if (project.gBoot.startClass == "") {
                     throw new GradleException("Please specify the main class")
                 }
             }
             into('lib') {
                 from project.configurations.runtime
             }
-            entryCompression org.gradle.api.tasks.bundling.ZipEntryCompression.STORED
+            entryCompression ZipEntryCompression.STORED
             manifest {
-                attributes("Main-Class": "com.github.atdi.gboot.loader.JarLauncher",
-                           "Start-Class": project.gBoot.mainClass)
+                attributes("Main-Class": project.gBoot.mainClass,
+                        "Start-Class": project.gBoot.startClass)
             }
         }
+    }
 
+    private createUnpackLoaderTask(Project project) {
+        project.task("unpackLoader", type: Copy) {
+            from {
+                project.configurations.loader.collect {
+                    project.zipTree(it)
+                }
+
+            }
+            include '**/*.class'
+            into "$project.buildDir/classes/main/"
+
+            includeEmptyDirs = false
+        }
     }
 
     /**
