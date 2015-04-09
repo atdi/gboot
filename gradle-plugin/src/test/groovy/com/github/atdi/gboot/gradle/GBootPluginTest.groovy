@@ -8,9 +8,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-/**
- * Copyright (C) 2015 Aurel Avramescu.
- */
+
 class GBootPluginTest {
 
     Project project
@@ -35,14 +33,14 @@ class GBootPluginTest {
 
     @Test
     void testJarPass() {
-        project.gBoot.startClass = "com.play.Main"
+        project.gBoot {startClass = "com.play.Main"}
         project.tasks.jar.execute()
         assertTrue(project.tasks.jar.getState().executed)
     }
 
     @Test
     void testJarPassWithLoaderConf() {
-        project.gBoot.startClass = "com.play.Main"
+        project.gBoot {startClass = "com.play.Main"}
         project.tasks.compileJava.execute()
         project.tasks.unpackLoader.execute()
         project.tasks.jar.execute()
