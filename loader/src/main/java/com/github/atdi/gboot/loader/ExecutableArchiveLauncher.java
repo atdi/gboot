@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Base class for executable archive {@link Launcher}s.
@@ -18,6 +20,8 @@ public abstract class ExecutableArchiveLauncher extends Launcher {
     private final Archive archive;
 
     private final JavaAgentDetector javaAgentDetector;
+
+    private static final Logger logger = Logger.getLogger(ExecutableArchiveLauncher.class.getName());
 
     public ExecutableArchiveLauncher() {
         this(new InputArgumentsJavaAgentDetector());
@@ -108,11 +112,10 @@ public abstract class ExecutableArchiveLauncher extends Launcher {
             classloader = Thread.currentThread().getContextClassLoader();
         }
         catch (Throwable ex) {
-            // Cannot access thread context ClassLoader - falling back to system class
-            // loader...
+            logger.log(Level.WARNING, "Cannot access thread context ClassLoader - " +
+                    "falling back to system class loader...", ex);
         }
         if (classloader == null) {
-            // No thread context class loader -> use class loader of this class.
             classloader = ExecutableArchiveLauncher.class.getClassLoader();
         }
         return classloader;

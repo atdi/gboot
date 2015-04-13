@@ -100,11 +100,11 @@ public class ExplodedArchive extends Archive {
                 return;
             }
             for (File child : files) {
-                if (!SKIPPED_NAMES.contains(child.getName())) {
-                    if (file.equals(this.root) || recursive
-                            || file.getName().equals("META-INF")) {
-                        buildEntries(child, recursive);
-                    }
+                if (!SKIPPED_NAMES.contains(child.getName()) &&
+                        (file.equals(this.root) || recursive
+                                || file.getName().equals("META-INF"))) {
+                    buildEntries(child, recursive);
+
                 }
             }
         }

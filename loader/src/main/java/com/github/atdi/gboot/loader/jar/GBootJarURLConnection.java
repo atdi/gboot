@@ -207,7 +207,7 @@ public class GBootJarURLConnection extends java.net.JarURLConnection {
 
         private AsciiBytes decode(String source) {
             int length = (source == null ? 0 : source.length());
-            if ((length == 0) || (source.indexOf('%') < 0)) {
+            if (length == 0 || source.indexOf('%') < 0) {
                 return new AsciiBytes(source);
             }
             ByteArrayOutputStream bos = new ByteArrayOutputStream(length);

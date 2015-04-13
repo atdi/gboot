@@ -26,6 +26,8 @@ import java.security.PrivilegedExceptionAction;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Custom class loader, which loads the
@@ -36,6 +38,8 @@ public class GBootClassLoader extends URLClassLoader {
     private static LockProvider LOCK_PROVIDER = setupLockProvider();
 
     private final ClassLoader rootClassLoader;
+
+    private static final Logger logger = Logger.getLogger(GBootClassLoader.class.getName());
 
     /**
      * Create a new {@link GBootClassLoader} instance.
@@ -152,6 +156,9 @@ public class GBootClassLoader extends URLClassLoader {
             }
         }
         catch (Exception ex) {
+            logger.log(Level.WARNING,
+                    String.format("Failed to load class %s using root class loader",
+                            name), ex);
         }
 
         // 2) Try to find locally
@@ -161,6 +168,7 @@ public class GBootClassLoader extends URLClassLoader {
             return cls;
         }
         catch (Exception ex) {
+            logger.log(Level.WARNING, String.format("Failed to find class %s locally", name), ex);
         }
 
         // 3) Use standard loading
@@ -176,7 +184,7 @@ public class GBootClassLoader extends URLClassLoader {
                     definePackageForFindClass(name, packageName);
                 }
                 catch (Exception ex) {
-                    // Swallow and continue
+                    logger.log(Level.WARNING, String.format("Failed to find package %s", name), ex);
                 }
             }
         }
@@ -209,7 +217,8 @@ public class GBootClassLoader extends URLClassLoader {
                             }
                         }
                         catch (IOException ex) {
-                            // Ignore
+                            logger.log(Level.WARNING, String.format("Failed to define package %s for class %s",
+                                    packageName, name), ex);
                         }
                     }
                     return null;
@@ -217,7 +226,8 @@ public class GBootClassLoader extends URLClassLoader {
             }, AccessController.getContext());
         }
         catch (java.security.PrivilegedActionException ex) {
-            // Ignore
+            logger.log(Level.SEVERE, String.format("Security error for package %s and class and %s",
+                    packageName, name), ex);
         }
     }
 

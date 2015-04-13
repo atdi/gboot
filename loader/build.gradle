@@ -9,9 +9,6 @@ plugins {
 findbugs {
     ignoreFailures = true
 }
-pmd {
-    ignoreFailures = true
-}
 
 findbugsTest.enabled = false
 pmdTest.enabled = false

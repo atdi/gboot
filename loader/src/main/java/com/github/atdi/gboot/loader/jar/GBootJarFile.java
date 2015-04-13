@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 
 /**
@@ -66,6 +68,8 @@ public class GBootJarFile extends java.util.jar.JarFile implements Iterable<GBoo
     private SoftReference<Manifest> manifest;
 
     private URL url;
+
+    private static final Logger logger = Logger.getLogger(GBootJarFile.class.getName());
 
     /**
      * Create a new {@link com.github.atdi.gboot.loader.jar.GBootJarFile} backed by the specified file.
@@ -443,7 +447,7 @@ public class GBootJarFile extends java.util.jar.JarFile implements Iterable<GBoo
             URL.setURLStreamHandlerFactory(null);
         }
         catch (Error ex) {
-            // Ignore
+            logger.log(Level.SEVERE, "Error during cache reset", ex);
         }
     }
 

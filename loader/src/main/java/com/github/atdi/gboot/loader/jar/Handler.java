@@ -21,6 +21,8 @@ import java.util.logging.Logger;
  */
 public class Handler extends URLStreamHandler {
 
+    private static final Logger logger = Logger.getLogger(Handler.class.getName());
+
     // NOTE: in order to be found as a URL protocol hander, this class must be public,
     // must be named Handler and must be in a package ending '.jar'
 
@@ -38,6 +40,7 @@ public class Handler extends URLStreamHandler {
                     .getDeclaredMethod("openConnection", URL.class);
         }
         catch (Exception ex) {
+            logger.log(Level.SEVERE, "Error while trying to load openConnection method", ex);
         }
         OPEN_CONNECTION_METHOD = method;
     }
@@ -47,7 +50,6 @@ public class Handler extends URLStreamHandler {
         rootFileCache = new SoftReference<Map<File, GBootJarFile>>(null);
     }
 
-    private final Logger logger = Logger.getLogger(getClass().getName());
 
     private final GBootJarFile jarFile;
 
@@ -81,10 +83,10 @@ public class Handler extends URLStreamHandler {
         }
         catch (Exception ex) {
             if (reason instanceof IOException) {
-                this.logger.log(Level.FINEST, "Unable to open fallback handler", ex);
+                logger.log(Level.FINEST, "Unable to open fallback handler", ex);
                 throw (IOException) reason;
             }
-            this.logger.log(Level.WARNING, "Unable to open fallback handler", ex);
+            logger.log(Level.WARNING, "Unable to open fallback handler", ex);
             if (reason instanceof RuntimeException) {
                 throw (RuntimeException) reason;
             }
@@ -103,7 +105,7 @@ public class Handler extends URLStreamHandler {
                 return this.fallbackHandler;
             }
             catch (Exception ex) {
-                // Ignore
+                logger.log(Level.SEVERE, "Error trying to get fallback class handler", ex);
             }
         }
         throw new IllegalStateException("Unable to find fallback handler");
