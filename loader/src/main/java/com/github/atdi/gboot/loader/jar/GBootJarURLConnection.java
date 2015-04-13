@@ -14,7 +14,7 @@ import java.net.URLStreamHandler;
 import java.util.jar.Manifest;
 
 /**
- * {@link java.net.JarURLConnection} used to support {@link JarFile#getUrl()}.
+ * {@link java.net.JarURLConnection} used to support {@link GBootJarFile#getUrl()}.
  *
  */
 public class GBootJarURLConnection extends java.net.JarURLConnection {
@@ -70,7 +70,7 @@ public class GBootJarURLConnection extends java.net.JarURLConnection {
     private GBootJarFile getNestedJarFile(GBootJarFile jarFile, String name) throws IOException {
         GBootJarEntry jarEntry = jarFile.getJarEntry(name);
         if (jarEntry == null) {
-            throwFileNotFound(jarEntry, jarFile);
+            throwFileNotFound(name, jarFile);
         }
         return jarFile.getNestedJarFile(jarEntry);
     }
@@ -206,8 +206,8 @@ public class GBootJarURLConnection extends java.net.JarURLConnection {
         }
 
         private AsciiBytes decode(String source) {
-            int length = (source == null ? 0 : source.length());
-            if (length == 0 || source.indexOf('%') < 0) {
+            int length = source.length();
+            if (source.indexOf('%') < 0) {
                 return new AsciiBytes(source);
             }
             ByteArrayOutputStream bos = new ByteArrayOutputStream(length);

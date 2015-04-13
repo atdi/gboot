@@ -20,6 +20,7 @@ import com.github.atdi.gboot.loader.jar.GBootJarEntryData;
 import com.github.atdi.gboot.loader.jar.GBootJarEntryFilter;
 import com.github.atdi.gboot.loader.jar.GBootJarFile;
 import com.github.atdi.gboot.loader.util.AsciiBytes;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.List;
 import java.io.File;
@@ -119,6 +120,7 @@ public class JarFileArchive extends Archive {
         return new JarFileArchive(file, file.toURI().toURL());
     }
 
+    @SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"})
     private File getTempUnpackFolder() {
         File tempFolder = new File(System.getProperty("java.io.tmpdir"));
         File unpackFolder = new File(tempFolder, "spring-boot-libs");

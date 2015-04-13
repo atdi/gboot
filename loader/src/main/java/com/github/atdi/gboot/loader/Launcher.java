@@ -4,6 +4,7 @@ import com.github.atdi.gboot.loader.archive.Archive;
 import com.github.atdi.gboot.loader.archive.ExplodedArchive;
 import com.github.atdi.gboot.loader.archive.JarFileArchive;
 import com.github.atdi.gboot.loader.jar.GBootJarFile;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -34,6 +35,7 @@ public abstract class Launcher {
      * called by a subclass {@code public static void main(String[] args)} method.
      * @param args the incoming arguments
      */
+    @SuppressFBWarnings({"DM_EXIT"})
     protected void launch(String[] args) {
         try {
             GBootJarFile.registerUrlProtocolHandler();

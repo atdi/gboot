@@ -166,7 +166,7 @@ public class ExplodedArchive extends Archive {
         return new ExplodedArchive(this.root, filteredEntries);
     }
 
-    private class FileEntry implements Entry {
+    private static class FileEntry implements Entry {
 
         private final AsciiBytes name;
 
