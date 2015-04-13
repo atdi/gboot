@@ -4,8 +4,6 @@ plugins {
     id 'nu.studer.plugindev' version '1.0.3'
 }
 
-group = 'com.github.atdi.gboot'
-
 dependencies {
     compile gradleApi()
     compile localGroovy()
@@ -32,13 +30,4 @@ plugindev {
     projectUrl 'https://github.com/atdi/gboot'
     projectInceptionYear '2014'
     done()
-}
-
-bintray {
-    user = project.ext.has('bintrayUser') ? project.ext.bintrayUser : ''
-    key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''
-    pkg {
-        repo = 'maven'
-        name = 'gboot'
-    }
 }
