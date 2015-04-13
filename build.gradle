@@ -7,7 +7,7 @@ task wrapper(type: Wrapper) {
 }
 
 subprojects {
-
+    group = 'com.github.atdi.gboot'
     repositories {
         mavenLocal()
         mavenCentral()
