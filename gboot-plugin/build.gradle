@@ -37,6 +37,6 @@ plugindev {
     authorName 'Aurel Avramescu'
     authorEmail 'aurel.avramescu@gmail.com'
     projectUrl 'https://github.com/atdi/gboot'
-    projectInceptionYear '2014'
+    projectInceptionYear '2015'
     done()
 }
