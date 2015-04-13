@@ -7,6 +7,8 @@ plugins {
     id 'idea'
 }
 
+group = 'com.github.atdi.gboot'
+
 bintray {
     user = project.ext.has('bintrayUser') ? project.ext.bintrayUser : ''
     key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''

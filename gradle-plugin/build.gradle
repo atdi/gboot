@@ -4,6 +4,7 @@ plugins {
     id 'nu.studer.plugindev' version '1.0.3'
 }
 
+group = 'com.github.atdi.gboot'
 
 dependencies {
     compile gradleApi()
