@@ -7,24 +7,13 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
 
-allprojects {
-    group = 'com.github.atdi.gboot'
-
-    bintray {
-        user = project.ext.has('bintrayUser') ? project.ext.bintrayUser : ''
-        key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''
-        pkg {
-            repo = 'maven'
-            name = 'gboot'
-        }
-    }
-}
-
 subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
     }
+
+    group = 'com.github.atdi.gboot'
 
     project.version = scmVersion.version
 
