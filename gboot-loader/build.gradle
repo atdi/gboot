@@ -4,6 +4,7 @@ plugins {
     id 'pmd'
     id 'findbugs'
     id 'idea'
+    id "com.jfrog.bintray" version "1.1"
 }
 
 bintray {
@@ -11,7 +12,8 @@ bintray {
     key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''
     pkg {
         repo = 'maven'
-        name = 'gboot'
+        name = 'gboot-loader'
+        licenses = ['Apache-2.0']
     }
 }
 
