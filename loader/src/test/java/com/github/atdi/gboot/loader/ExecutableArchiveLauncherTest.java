@@ -50,7 +50,7 @@ public class ExecutableArchiveLauncherTest {
     public void javaAgentJarsAreExcludedFromClasspath() throws Exception {
         URL javaAgent = new File("my-agent.jar").getCanonicalFile().toURI().toURL();
         final URL one = new URL("file:one");
-        given(this.javaAgentDetector.isJavaAgentJar(javaAgent)).willReturn(true);
+        given(this.javaAgentDetector.isJavaAgentJar(javaAgent.toURI())).willReturn(true);
         doWithTccl(new URLClassLoader(new URL[] { javaAgent, one }),
                 new Callable<Void>() {
 

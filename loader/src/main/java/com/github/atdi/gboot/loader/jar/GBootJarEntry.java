@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.CodeSigner;
 import java.security.cert.Certificate;
+import java.util.Arrays;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
@@ -68,7 +69,7 @@ public class GBootJarEntry  extends java.util.jar.JarEntry {
         if (this.source.getSource().isSigned() && this.certificates == null) {
             this.source.getSource().setupEntryCertificates();
         }
-        return this.certificates;
+        return Arrays.copyOf(this.certificates, this.certificates.length);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class GBootJarEntry  extends java.util.jar.JarEntry {
         if (this.source.getSource().isSigned() && this.codeSigners == null) {
             this.source.getSource().setupEntryCertificates();
         }
-        return this.codeSigners;
+        return Arrays.copyOf(this.codeSigners, this.codeSigners.length);
     }
 
     void setupCertificates(java.util.jar.JarEntry entry) {

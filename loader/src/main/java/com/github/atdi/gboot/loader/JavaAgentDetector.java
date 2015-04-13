@@ -1,6 +1,6 @@
 package com.github.atdi.gboot.loader;
 
-import java.net.URL;
+import java.net.URI;
 
 /**
  * A strategy for detecting Java agents
@@ -14,6 +14,6 @@ public interface JavaAgentDetector {
      * @param url The url to examine
      * @return if the URL points to a Java agent
      */
-    public boolean isJavaAgentJar(URL url);
+    public boolean isJavaAgentJar(URI url);
 
 }

@@ -1,6 +1,8 @@
 package com.github.atdi.gboot.loader;
 
 import com.github.atdi.gboot.loader.archive.Archive;
+
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -79,14 +81,14 @@ public abstract class ExecutableArchiveLauncher extends Launcher {
         return super.createClassLoader(copy.toArray(new URL[copy.size()]));
     }
 
-    private boolean addDefaultClassloaderUrl(URL[] urls, URL url) {
+    private boolean addDefaultClassloaderUrl(URL[] urls, URL url) throws URISyntaxException {
         String jarUrl = "jar:" + url + "!/";
         for (URL nestedUrl : urls) {
-            if (nestedUrl.equals(url) || nestedUrl.toString().equals(jarUrl)) {
+            if (nestedUrl.toURI().equals(url.toURI()) || nestedUrl.toString().equals(jarUrl)) {
                 return false;
             }
         }
-        return !this.javaAgentDetector.isJavaAgentJar(url);
+        return !this.javaAgentDetector.isJavaAgentJar(url.toURI());
     }
 
     /**

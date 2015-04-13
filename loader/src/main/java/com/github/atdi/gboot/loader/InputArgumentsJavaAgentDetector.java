@@ -3,7 +3,7 @@ package com.github.atdi.gboot.loader;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
-import java.net.URL;
+import java.net.URI;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Collections;
@@ -18,7 +18,7 @@ public class InputArgumentsJavaAgentDetector implements JavaAgentDetector {
 
     private static final String JAVA_AGENT_PREFIX = "-javaagent:";
 
-    private final Set<URL> javaAgentJars;
+    private final Set<URI> javaAgentJars;
 
     public InputArgumentsJavaAgentDetector() {
         this(getInputArguments());
@@ -42,13 +42,13 @@ public class InputArgumentsJavaAgentDetector implements JavaAgentDetector {
         }
     }
 
-    private Set<URL> getJavaAgentJars(List<String> inputArguments) {
-        Set<URL> javaAgentJars = new HashSet<URL>();
+    private Set<URI> getJavaAgentJars(List<String> inputArguments) {
+        Set<URI> javaAgentJars = new HashSet<URI>();
         for (String argument : inputArguments) {
             String path = getJavaAgentJarPath(argument);
             if (path != null) {
                 try {
-                    javaAgentJars.add(new File(path).getCanonicalFile().toURI().toURL());
+                    javaAgentJars.add(new File(path).getCanonicalFile().toURI());
                 }
                 catch (IOException ex) {
                     throw new IllegalStateException(
@@ -73,7 +73,7 @@ public class InputArgumentsJavaAgentDetector implements JavaAgentDetector {
     }
 
     @Override
-    public boolean isJavaAgentJar(URL url) {
+    public boolean isJavaAgentJar(URI url) {
         return this.javaAgentJars.contains(url);
     }
 

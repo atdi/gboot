@@ -19,6 +19,7 @@ package com.github.atdi.gboot.loader.jar;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.SoftReference;
+import java.util.Arrays;
 import java.util.zip.ZipEntry;
 
 import com.github.atdi.gboot.loader.data.RandomAccessData;
@@ -55,7 +56,7 @@ public class GBootJarEntryData {
     public GBootJarEntryData(GBootJarFile source, byte[] header, InputStream inputStream)
             throws IOException {
         this.source = source;
-        this.header = header;
+        this.header = Arrays.copyOf(header, header.length);
         long nameLength = Bytes.littleEndianValue(header, 28, 2);
         long extraLength = Bytes.littleEndianValue(header, 30, 2);
         long commentLength = Bytes.littleEndianValue(header, 32, 2);
@@ -158,7 +159,7 @@ public class GBootJarEntryData {
     }
 
     public byte[] getExtra() {
-        return this.extra;
+        return Arrays.copyOf(this.extra, this.extra.length);
     }
 
     public AsciiBytes getComment() {

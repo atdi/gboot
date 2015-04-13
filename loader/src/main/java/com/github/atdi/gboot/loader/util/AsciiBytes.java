@@ -1,6 +1,7 @@
 package com.github.atdi.gboot.loader.util;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 /**
  * Simple wrapper around a byte array that represents an ASCII. Used for performance
@@ -52,7 +53,7 @@ public class AsciiBytes {
         if (offset < 0 || length < 0 || (offset + length) > bytes.length) {
             throw new IndexOutOfBoundsException();
         }
-        this.bytes = bytes;
+        this.bytes = Arrays.copyOf(bytes, bytes.length);
         this.offset = offset;
         this.length = length;
     }
