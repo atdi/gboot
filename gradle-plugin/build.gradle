@@ -32,3 +32,11 @@ plugindev {
     projectInceptionYear '2014'
     done()
 }
+
+bintray {
+    user = project.ext.has('bintrayUser') ? project.ext.bintrayUser : ''
+    key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''
+    pkg {
+        repo = 'maven'
+    }
+}
