@@ -5,11 +5,14 @@ plugins {
     id 'findbugs'
     id 'idea'
     id "com.jfrog.bintray" version "1.1"
+    id "maven"
 }
 
 bintray {
     user = project.ext.has('bintrayUser') ? project.ext.bintrayUser : ''
     key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''
+    configurations = ['published', 'archives']
+    publish = project.publish
     pkg {
         repo = 'maven'
         name = 'gboot-loader'
@@ -29,6 +32,23 @@ bintray {
 configurations {
     provided
     runtime
+    published
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+// Add the sourceJars to non-extractor modules
+artifacts {
+    published sourceJar
+    published javadocJar
 }
 
 compileJava.classpath += project.configurations.provided
