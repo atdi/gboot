@@ -9,7 +9,7 @@ bintray {
     key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''
     pkg {
         repo = 'maven'
-        name = 'gboot'
+        name = 'gboot-plugin'
     }
 }
 
