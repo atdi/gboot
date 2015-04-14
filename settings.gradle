@@ -4,6 +4,6 @@ include 'gboot-plugin'
 
 include 'gboot-loader'
 
-//include 'examples/guice-jetty-resteasy'
-//rootProject.children.find { it.name == 'examples/guice-jetty-resteasy' }.name = 'guice-jetty-resteasy'
+include 'examples/guice-jetty-resteasy'
+rootProject.children.find { it.name == 'examples/guice-jetty-resteasy' }.name = 'guice-jetty-resteasy'
 
