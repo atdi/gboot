@@ -17,6 +17,7 @@ package com.atdi.gboot.examples.guice.jetty.resteasy.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
@@ -42,6 +43,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @GeneratePojoBuilder(withCopyMethod = true)
+@NoArgsConstructor
 public class Role implements Serializable {
     @Id
     @Column(name = "id", unique = true, nullable = false)

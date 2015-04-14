@@ -2,6 +2,7 @@ package com.atdi.gboot.examples.guice.jetty.resteasy.web;
 
 
 import com.atdi.gboot.examples.guice.jetty.resteasy.modules.PersistenceModule;
+import com.atdi.gboot.examples.guice.jetty.resteasy.services.UserService;
 import com.google.inject.Guice;
 import com.google.inject.servlet.ServletModule;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -27,9 +28,7 @@ public class JerseyResourceConfig extends ResourceConfig {
             // Configure your IOC
             @Override
             protected void configureServlets() {
-                //PackagesResourceConfig resourceConfig = new PackagesResourceConfig("jersey.resources.package");
-                //for (Class<?> resource : resourceConfig.getClasses()) {
-                //}
+                bind(UserService.class);
             }
         }, new PersistenceModule("demo-guice-boot")));
 
