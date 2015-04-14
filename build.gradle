@@ -2,6 +2,13 @@ plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.2.0'
 }
 
+scmVersion {
+    tag {
+        prefix = 'RELEASE'
+        initialVersion = { tag, position -> '0.1.0' }
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }

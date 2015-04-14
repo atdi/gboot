@@ -19,6 +19,10 @@ bintray {
         vcsUrl = 'https://github.com/atdi/gboot.git'
         licenses = ['Apache-2.0']
         publicDownloadNumbers = true
+        version {
+            name = project.version
+            vcsTag = "RELEASE-$version"
+        }
     }
 }
 
