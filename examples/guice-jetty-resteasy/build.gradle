@@ -1,10 +1,14 @@
 buildscript {
     repositories {
         jcenter()
+        //maven {
+        //    url  "http://dl.bintray.com/atdi/maven"
+        //}
+        mavenLocal()
     }
 
     dependencies {
-        classpath project(':gboot-plugin')
+        classpath group: 'com.github.atdi.gboot', name: 'gboot-plugin', version: '0.1.4-SNAPSHOT'
     }
 }
 apply plugin: 'java'
@@ -20,6 +24,7 @@ gBoot {
     startClass = "com.atdi.gboot.examples.guice.jetty.resteasy.Bootstrap"
 }
 
+print gBoot.startClass
 dependencies {
     compile("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
     compile("org.hibernate:hibernate-core:4.3.8.Final")

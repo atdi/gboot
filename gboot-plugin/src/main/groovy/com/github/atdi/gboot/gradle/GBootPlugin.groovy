@@ -53,15 +53,19 @@ class GBootPlugin implements Plugin<Project> {
                 if (project.gBoot.startClass == "") {
                     throw new GradleException("Please specify the main class")
                 }
+
+                manifest {
+                    print "Manifest evaluation: " + project.gBoot.startClass
+                    attributes("Main-Class": project.gBoot.mainClass,
+                            "Start-Class": project.gBoot.startClass)
+                }
             }
+
             into('lib') {
                 from project.configurations.runtime
             }
             entryCompression ZipEntryCompression.STORED
-            manifest {
-                attributes("Main-Class": project.gBoot.mainClass,
-                        "Start-Class": project.gBoot.startClass)
-            }
+
         }
     }
 
