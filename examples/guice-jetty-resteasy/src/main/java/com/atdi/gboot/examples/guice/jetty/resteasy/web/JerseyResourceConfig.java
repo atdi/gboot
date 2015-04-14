@@ -1,6 +1,9 @@
 package com.atdi.gboot.examples.guice.jetty.resteasy.web;
 
 
+import com.atdi.gboot.examples.guice.jetty.resteasy.modules.PersistenceModule;
+import com.google.inject.Guice;
+import com.google.inject.servlet.ServletModule;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.jvnet.hk2.guice.bridge.api.GuiceBridge;
@@ -17,10 +20,18 @@ public class JerseyResourceConfig extends ResourceConfig {
 
         //log.info("Registering injectables...");
 
-        //GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
+        GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
 
-        //GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
-        //guiceBridge.bridgeGuiceInjector(GuiceContextListener.injector);
+        GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
+        guiceBridge.bridgeGuiceInjector(Guice.createInjector(new ServletModule() {
+            // Configure your IOC
+            @Override
+            protected void configureServlets() {
+                //PackagesResourceConfig resourceConfig = new PackagesResourceConfig("jersey.resources.package");
+                //for (Class<?> resource : resourceConfig.getClasses()) {
+                //}
+            }
+        }, new PersistenceModule("demo-guice-boot")));
 
     }
 }
