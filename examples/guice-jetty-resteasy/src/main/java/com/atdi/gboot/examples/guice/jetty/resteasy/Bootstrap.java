@@ -19,7 +19,7 @@ import com.atdi.gboot.examples.guice.jetty.resteasy.web.GuiceContextListener;
 import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
+import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
@@ -34,9 +34,9 @@ public class Bootstrap {
         ServletContextHandler handler =
                 new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
         handler.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
-        GuiceContextListener contextListener = new GuiceContextListener("demo-guice-boot");
+        GuiceContextListener contextListener = new GuiceContextListener();
         handler.addEventListener(contextListener);
-        handler.addServlet(HttpServletDispatcher.class, "/*");
+        handler.addServlet(ServletContainer.class, "/*");
         server.start();
     }
 }

@@ -18,6 +18,7 @@ package com.atdi.gboot.examples.guice.jetty.resteasy.resources;
 import com.atdi.gboot.examples.guice.jetty.resteasy.model.User;
 import com.atdi.gboot.examples.guice.jetty.resteasy.model.UserBuilder;
 import com.atdi.gboot.examples.guice.jetty.resteasy.services.UserService;
+import com.google.inject.servlet.RequestScoped;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -33,6 +34,7 @@ import java.util.UUID;
 /**
  * User rest resources.
  */
+@RequestScoped
 @Path("/users")
 @Produces("application/json")
 public class UserResource {
