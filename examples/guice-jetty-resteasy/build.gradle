@@ -1,9 +1,6 @@
 buildscript {
     repositories {
         jcenter()
-        maven {
-            url  "http://dl.bintray.com/atdi/maven"
-        }
     }
 
     dependencies {
@@ -17,9 +14,7 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven {
-        url  "http://dl.bintray.com/atdi/maven"
-    }
+    jcenter()
 }
 
 gBoot {
