@@ -15,8 +15,18 @@
  */
 package com.atdi.gboot.examples.guice.jetty.resteasy;
 
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+
 /**
  * Main class.
  */
 public class Bootstrap {
+
+    public static void main(String args[]) throws Exception {
+        Server server = new Server(8001);
+        ServletContextHandler handler =
+                new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
+        server.start();
+    }
 }
