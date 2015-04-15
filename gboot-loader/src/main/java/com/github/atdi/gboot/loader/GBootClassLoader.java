@@ -33,6 +33,7 @@ import java.util.logging.Logger;
  * Custom class loader, which loads the
  * jars from lib folder.
  */
+@SuppressWarnings("PMD.EmptyCatchBlock")
 public class GBootClassLoader extends URLClassLoader {
 
     private static LockProvider LOCK_PROVIDER = setupLockProvider();
@@ -155,10 +156,8 @@ public class GBootClassLoader extends URLClassLoader {
                 return this.rootClassLoader.loadClass(name);
             }
         }
-        catch (Exception ex) {
-            logger.log(Level.WARNING,
-                    String.format("Failed to load class %s using root class loader",
-                            name), ex);
+        catch (ClassNotFoundException ex) {
+            // Do nothing for performance issues
         }
 
         // 2) Try to find locally
@@ -167,8 +166,8 @@ public class GBootClassLoader extends URLClassLoader {
             Class<?> cls = findClass(name);
             return cls;
         }
-        catch (Exception ex) {
-            logger.log(Level.WARNING, String.format("Failed to find class %s locally", name), ex);
+        catch (ClassNotFoundException ex) {
+            // Do nothing for performance issues
         }
 
         // 3) Use standard loading
@@ -184,7 +183,7 @@ public class GBootClassLoader extends URLClassLoader {
                     definePackageForFindClass(name, packageName);
                 }
                 catch (Exception ex) {
-                    logger.log(Level.WARNING, String.format("Failed to find package %s", name), ex);
+                    // Do nothing for performance issues
                 }
             }
         }
