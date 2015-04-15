@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.resteasy;
+package com.atdi.gboot.examples.guice.tomcat.jersey;
 
-import com.atdi.gboot.examples.guice.jetty.resteasy.web.JerseyResourceConfig;
 import org.apache.catalina.startup.Tomcat;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;

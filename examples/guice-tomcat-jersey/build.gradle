@@ -18,7 +18,7 @@ repositories {
 }
 
 gBoot {
-    startClass = "com.atdi.gboot.examples.guice.jetty.resteasy.Bootstrap"
+    startClass = "com.atdi.gboot.examples.guice.tomcat.jersey.Bootstrap"
 }
 
 configurations {

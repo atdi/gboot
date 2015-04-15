@@ -13,48 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.resteasy.services;
+package com.atdi.gboot.examples.guice.tomcat.jersey.services.dao;
 
-import com.atdi.gboot.examples.guice.jetty.resteasy.model.User;
-import com.atdi.gboot.examples.guice.jetty.resteasy.services.dao.GenericDAO;
 import com.google.inject.persist.Transactional;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.List;
+import javax.persistence.EntityManager;
 import java.util.UUID;
 
 /**
- * User service class.
+ * Abstract class implementation of ${@link GenericDAO}
+ * for JPA data access
  */
-@Singleton
-public class UserService {
-
-    private final GenericDAO<User> userDAO;
+public abstract class JpaGenericDAO<E> implements GenericDAO<E> {
 
     @Inject
-    public UserService(GenericDAO<User> userRepository) {
-        this.userDAO = userRepository;
+    protected EntityManager entityManager;
+
+    private final Class<E> clazz;
+
+    public JpaGenericDAO(Class<E> clazz) {
+        this.clazz = clazz;
     }
 
     @Transactional
-    public User addUser(User user) {
-        return userDAO.create(user);
+    @Override
+    public E create(E entity) {
+        entityManager.persist(entity);
+        return entity;
     }
 
     @Transactional
-    public User updateUser(User user) {
-        return userDAO.update(user);
+    @Override
+    public E update(E entity) {
+        return entity;
     }
 
     @Transactional
-    public User findById(UUID id) {
-        return userDAO.findById(id);
+    @Override
+    public E findById(UUID id) {
+        return entityManager.find(clazz, id);
     }
 
     @Transactional
-    public List<User> findUsers(User user) {
-        return userDAO.findByCriteria(user);
+    @Override
+    public void delete(E entity) {
+        entityManager.remove(entity);
     }
-
 }

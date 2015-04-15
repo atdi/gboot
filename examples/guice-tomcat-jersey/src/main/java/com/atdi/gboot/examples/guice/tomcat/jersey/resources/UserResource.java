@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.resteasy.resources;
+package com.atdi.gboot.examples.guice.tomcat.jersey.resources;
 
-import com.atdi.gboot.examples.guice.jetty.resteasy.model.User;
+import com.atdi.gboot.examples.guice.tomcat.jersey.model.User;
 import com.atdi.gboot.examples.guice.jetty.resteasy.model.UserBuilder;
-import com.atdi.gboot.examples.guice.jetty.resteasy.services.UserService;
+import com.atdi.gboot.examples.guice.tomcat.jersey.services.UserService;
+
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;

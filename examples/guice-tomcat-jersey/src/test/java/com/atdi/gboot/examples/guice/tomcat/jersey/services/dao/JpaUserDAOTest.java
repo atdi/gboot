@@ -1,8 +1,8 @@
-package com.atdi.gboot.examples.guice.jetty.resteasy.services.dao;
+package com.atdi.gboot.examples.guice.tomcat.jersey.services.dao;
 
-import com.atdi.gboot.examples.guice.jetty.resteasy.model.User;
+import com.atdi.gboot.examples.guice.tomcat.jersey.model.User;
 import com.atdi.gboot.examples.guice.jetty.resteasy.model.UserBuilder;
-import com.atdi.gboot.examples.guice.jetty.resteasy.modules.PersistenceModule;
+import com.atdi.gboot.examples.guice.tomcat.jersey.modules.PersistenceModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.After;

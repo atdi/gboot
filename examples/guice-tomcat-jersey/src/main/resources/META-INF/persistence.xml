@@ -3,8 +3,8 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="demo-guice-boot" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.atdi.gboot.examples.guice.jetty.resteasy.model.User</class>
-        <class>com.atdi.gboot.examples.guice.jetty.resteasy.model.Role</class>
+        <class>com.atdi.gboot.examples.guice.tomcat.jersey.model.User</class>
+        <class>com.atdi.gboot.examples.guice.tomcat.jersey.model.Role</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:unit-testing-jpa"/>
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
