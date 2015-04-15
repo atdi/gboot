@@ -38,7 +38,7 @@ public class Bootstrap {
         wrapper.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,
                 JerseyResourceConfig.class.getCanonicalName());
         wrapper.setLoadOnStartup(1);
-        rootCtx.addServletMapping("/api", "restServlet");
+        rootCtx.addServletMapping("/api/*", "restServlet");
         tomcat.start();
         tomcat.getServer().await();
     }
