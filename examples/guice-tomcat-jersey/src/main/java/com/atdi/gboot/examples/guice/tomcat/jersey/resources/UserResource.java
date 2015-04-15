@@ -16,7 +16,7 @@
 package com.atdi.gboot.examples.guice.tomcat.jersey.resources;
 
 import com.atdi.gboot.examples.guice.tomcat.jersey.model.User;
-import com.atdi.gboot.examples.guice.jetty.resteasy.model.UserBuilder;
+import com.atdi.gboot.examples.guice.tomcat.jersey.model.UserBuilder;
 import com.atdi.gboot.examples.guice.tomcat.jersey.services.UserService;
 
 import javax.inject.Inject;
