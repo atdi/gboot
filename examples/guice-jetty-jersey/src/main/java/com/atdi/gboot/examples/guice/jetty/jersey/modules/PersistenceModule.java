@@ -17,6 +17,7 @@ package com.atdi.gboot.examples.guice.jetty.jersey.modules;
 
 import com.atdi.gboot.examples.guice.jetty.jersey.model.Role;
 import com.atdi.gboot.examples.guice.jetty.jersey.model.User;
+import com.atdi.gboot.examples.guice.jetty.jersey.services.UserService;
 import com.atdi.gboot.examples.guice.jetty.jersey.services.dao.GenericDAO;
 import com.atdi.gboot.examples.guice.jetty.jersey.services.dao.JpaRoleDAO;
 import com.atdi.gboot.examples.guice.jetty.jersey.services.dao.JpaUserDAO;
@@ -45,5 +46,6 @@ public class PersistenceModule extends AbstractModule {
         bind(new TypeLiteral<GenericDAO<Role>>() {
         }).to(new TypeLiteral<JpaRoleDAO>() {
         });
+        bind(UserService.class);
     }
 }

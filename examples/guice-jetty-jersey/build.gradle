@@ -42,7 +42,7 @@ dependencies {
     compile('org.hsqldb:hsqldb:2.3.2')
     // Guice dependencies
     compile("com.google.inject:guice:$guiceVersion")
-    compile("com.google.inject.extensions:guice-servlet:$guiceVersion")
+    // compile("com.google.inject.extensions:guice-servlet:$guiceVersion")
     compile("com.google.inject.extensions:guice-persist:$guiceVersion")
     compile("javax.inject:javax.inject:$javaxInjectVersion")
     // Jersey dependencies

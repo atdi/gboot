@@ -15,6 +15,8 @@
  */
 package com.atdi.gboot.examples.guice.tomcat.jersey;
 
+import com.atdi.gboot.examples.guice.tomcat.jersey.web.JerseyResourceConfig;
+import org.apache.catalina.Wrapper;
 import org.apache.catalina.startup.Tomcat;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
@@ -27,22 +29,16 @@ import java.io.File;
 public class Bootstrap {
 
     public static void main(String args[]) throws Exception {
-        //Server server = new Server(8001);
-        //ServletContextHandler sch = new ServletContextHandler(server, "/");
-        //sch.addServlet(DefaultServlet.class, "/");
-
-        //ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
-        //jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyResourceConfig.class.getCanonicalName());
-        //sch.addServlet(jerseyServletHolder, "/api/*");
-
-        //server.start();
-        //server.join();
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8002);
         File base = new File(System.getProperty("java.io.tmpdir"));
-        Context rootCtx = tomcat.addContext("/", base.getAbsolutePath());
-        Tomcat.addServlet(rootCtx, ServletProperties.JAXRS_APPLICATION_CLASS, new ServletContainer());
-        rootCtx.addServletMapping("/api", ServletProperties.JAXRS_APPLICATION_CLASS);
+        Context rootCtx = tomcat.addContext("", base.getAbsolutePath());
+        Wrapper wrapper = Tomcat.addServlet(rootCtx, "restServlet",
+                new ServletContainer());
+        wrapper.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,
+                JerseyResourceConfig.class.getCanonicalName());
+        wrapper.setLoadOnStartup(1);
+        rootCtx.addServletMapping("/api", "restServlet");
         tomcat.start();
         tomcat.getServer().await();
     }
