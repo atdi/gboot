@@ -18,8 +18,6 @@ package com.atdi.gboot.examples.guice.jetty.resteasy.resources;
 import com.atdi.gboot.examples.guice.jetty.resteasy.model.User;
 import com.atdi.gboot.examples.guice.jetty.resteasy.model.UserBuilder;
 import com.atdi.gboot.examples.guice.jetty.resteasy.services.UserService;
-import com.google.inject.servlet.RequestScoped;
-
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -35,13 +33,16 @@ import java.util.UUID;
 /**
  * User rest resources.
  */
-@RequestScoped
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
+    private final UserService userService;
+
     @Inject
-    private UserService userService;
+    public UserResource(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @POST
@@ -61,7 +62,7 @@ public class UserResource {
     @Path("/{userId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("userId") String userId, User user) {
-        return Response.status(Response.Status.CREATED).entity(userService.updateUser(user)).build();
+        return Response.ok().entity(userService.updateUser(user)).build();
     }
 
     @GET
