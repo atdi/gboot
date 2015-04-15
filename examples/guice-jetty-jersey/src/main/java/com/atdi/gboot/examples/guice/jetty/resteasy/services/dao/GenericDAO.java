@@ -13,10 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.resteasy;
+package com.atdi.gboot.examples.guice.jetty.resteasy.services.dao;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
- * Main class.
+ * Generic DAO interface.
  */
-public class Bootstrap {
+public interface GenericDAO<E> {
+
+    E create(E entity);
+
+    E update(E entity);
+
+    E findById(UUID id);
+
+    void delete(E entity);
+
+    List<E> findByCriteria(E query);
 }
