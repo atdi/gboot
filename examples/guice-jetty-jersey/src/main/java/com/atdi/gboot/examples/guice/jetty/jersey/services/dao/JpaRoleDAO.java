@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.resteasy.services.dao;
+package com.atdi.gboot.examples.guice.jetty.jersey.services.dao;
 
-import com.atdi.gboot.examples.guice.jetty.resteasy.model.Role;
+import com.atdi.gboot.examples.guice.jetty.jersey.model.Role;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;

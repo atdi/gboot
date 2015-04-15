@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.resteasy.model;
+package com.atdi.gboot.examples.guice.jetty.jersey.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

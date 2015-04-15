@@ -1,8 +1,8 @@
-package com.atdi.gboot.examples.guice.jetty.resteasy.resources;
+package com.atdi.gboot.examples.guice.jetty.jersey.resources;
 
-import com.atdi.gboot.examples.guice.jetty.resteasy.model.User;
-import com.atdi.gboot.examples.guice.jetty.resteasy.model.UserBuilder;
-import com.atdi.gboot.examples.guice.jetty.resteasy.modules.PersistenceModule;
+import com.atdi.gboot.examples.guice.jetty.jersey.model.User;
+import com.atdi.gboot.examples.guice.jetty.jersey.model.UserBuilder;
+import com.atdi.gboot.examples.guice.jetty.jersey.modules.PersistenceModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.Before;
