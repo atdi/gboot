@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.jersey.modules;
+package com.atdi.gboot.examples.guice.tomcat.jersey.modules;
 
-import com.atdi.gboot.examples.guice.jetty.jersey.model.Role;
-import com.atdi.gboot.examples.guice.jetty.jersey.model.User;
-import com.atdi.gboot.examples.guice.jetty.jersey.services.UserService;
-import com.atdi.gboot.examples.guice.jetty.jersey.services.dao.GenericDAO;
-import com.atdi.gboot.examples.guice.jetty.jersey.services.dao.JpaRoleDAO;
-import com.atdi.gboot.examples.guice.jetty.jersey.services.dao.JpaUserDAO;
+import com.atdi.gboot.examples.guice.tomcat.jersey.model.Role;
+import com.atdi.gboot.examples.guice.tomcat.jersey.model.User;
+import com.atdi.gboot.examples.guice.tomcat.jersey.services.UserService;
+import com.atdi.gboot.examples.guice.tomcat.jersey.services.dao.GenericDAO;
+import com.atdi.gboot.examples.guice.tomcat.jersey.services.dao.JpaRoleDAO;
+import com.atdi.gboot.examples.guice.tomcat.jersey.services.dao.JpaUserDAO;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.persist.jpa.JpaPersistModule;

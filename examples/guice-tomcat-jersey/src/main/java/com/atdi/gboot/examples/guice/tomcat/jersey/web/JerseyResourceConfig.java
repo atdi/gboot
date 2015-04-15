@@ -1,7 +1,7 @@
-package com.atdi.gboot.examples.guice.jetty.jersey.web;
+package com.atdi.gboot.examples.guice.tomcat.jersey.web;
 
 
-import com.atdi.gboot.examples.guice.jetty.jersey.modules.PersistenceModule;
+import com.atdi.gboot.examples.guice.tomcat.jersey.modules.PersistenceModule;
 import com.google.inject.Guice;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -15,7 +15,7 @@ public class JerseyResourceConfig extends ResourceConfig {
     @Inject
     public JerseyResourceConfig(ServiceLocator serviceLocator) {
         // Set package to look for resources in
-        packages("com.atdi.gboot.examples.guice.jetty.jersey.resources");
+        packages("com.atdi.gboot.examples.guice.tomcat.jersey.resources");
 
         //log.info("Registering injectables...");
 
