@@ -28,6 +28,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
@@ -36,7 +37,7 @@ import java.util.UUID;
  */
 @RequestScoped
 @Path("/users")
-@Produces("application/json")
+@Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
     @Inject
@@ -44,7 +45,7 @@ public class UserResource {
 
 
     @POST
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(User user) {
         User copyUser = new UserBuilder().copy(user).withId(UUID.randomUUID()).build();
         return Response.status(Response.Status.CREATED).entity(userService.addUser(copyUser)).build();
@@ -58,7 +59,7 @@ public class UserResource {
 
     @PUT
     @Path("/{userId}")
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("userId") String userId, User user) {
         return Response.status(Response.Status.CREATED).entity(userService.updateUser(user)).build();
     }
