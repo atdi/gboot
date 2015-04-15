@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.resteasy.modules;
+package com.atdi.gboot.examples.guice.jetty.jersey.modules;
 
 import com.google.inject.persist.PersistService;
 

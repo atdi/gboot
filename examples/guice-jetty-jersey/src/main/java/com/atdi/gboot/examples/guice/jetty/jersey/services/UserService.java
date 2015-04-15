@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.resteasy.services;
+package com.atdi.gboot.examples.guice.jetty.jersey.services;
 
-import com.atdi.gboot.examples.guice.jetty.resteasy.model.User;
-import com.atdi.gboot.examples.guice.jetty.resteasy.services.dao.GenericDAO;
+import com.atdi.gboot.examples.guice.jetty.jersey.model.User;
+import com.atdi.gboot.examples.guice.jetty.jersey.services.dao.GenericDAO;
 import com.google.inject.persist.Transactional;
 
 import javax.inject.Inject;
