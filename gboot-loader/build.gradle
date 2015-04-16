@@ -18,6 +18,8 @@ bintray {
     pkg {
         repo = 'maven'
         name = 'gboot-loader'
+        desc = 'Class loader for fatjars created wiht gboot-plugin.'
+        labels = ['java','class', 'loader', 'microservices', 'embedded']
         licenses = ['Apache-2.0']
         websiteUrl = 'https://github.com/atdi/gboot'
         issueTrackerUrl = 'https://github.com/atdi/gboot/issues'

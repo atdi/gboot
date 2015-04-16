@@ -30,9 +30,9 @@ dependencies {
 plugindev {
     pluginId 'com.github.atdi.gboot'
     pluginImplementationClass 'com.github.atdi.gboot.gradle.GBootPlugin'
-    pluginDescription 'Release and version management plugin.'
+    pluginDescription 'Executable fatjar creation.'
     pluginLicenses 'Apache-2.0'
-    pluginTags 'release', 'version'
+    pluginTags 'fatjar', 'microservices', 'embedded'
     authorId 'atdi'
     authorName 'Aurel Avramescu'
     authorEmail 'aurel.avramescu@gmail.com'
