@@ -1,7 +1,6 @@
 package com.atdi.gboot.examples.guice.jetty.jersey.web;
 
 
-import com.atdi.gboot.examples.guice.jetty.jersey.modules.PersistenceModule;
 import com.google.inject.Guice;
 import com.google.inject.Module;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -11,8 +10,8 @@ import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
 public abstract class AbstractResourceConfig extends ResourceConfig {
 
-    protected AbstractResourceConfig(ServiceLocator serviceLocator, Module... modules
-    ) {
+    protected AbstractResourceConfig(ServiceLocator serviceLocator,
+                                     Module... modules) {
         GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
 
         GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);

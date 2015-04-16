@@ -16,12 +16,8 @@
 package com.atdi.gboot.examples.guice.jetty.jersey;
 
 import com.atdi.gboot.examples.guice.jetty.jersey.web.JerseyResourceConfig;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.DefaultServlet;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.servlet.ServletContainer;
-import org.glassfish.jersey.servlet.ServletProperties;
+
+import java.io.File;
 
 /**
  * Main class.
@@ -29,15 +25,8 @@ import org.glassfish.jersey.servlet.ServletProperties;
 public class Bootstrap {
 
     public static void main(String args[]) throws Exception {
-        Server server = new Server(8001);
-        ServletContextHandler sch = new ServletContextHandler(server, "/");
-        sch.addServlet(DefaultServlet.class, "/");
-
-        ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
-        jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyResourceConfig.class.getCanonicalName());
-        sch.addServlet(jerseyServletHolder, "/api/*");
-
-        server.start();
-        server.join();
+        GBootApplication application = new GBootApplication(
+                JerseyResourceConfig.class.getCanonicalName(), args);
+        application.start();
     }
 }
