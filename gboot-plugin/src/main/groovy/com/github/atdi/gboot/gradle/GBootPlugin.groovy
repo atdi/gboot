@@ -81,6 +81,10 @@ class GBootPlugin implements Plugin<Project> {
         Task gBootRunTask = project.tasks.create(GBOOT_RUN_TASK, GBootRunTask)
         gBootRunTask.description = 'Run your java application'
         gBootRunTask.dependsOn(UNPACK_LOADER_TASK)
+        gBootRunTask.doFirst {
+            main = project.gBoot.startClass
+            classpath = project.sourceSets.main.runtimeClasspath
+        }
     }
 
     private createUnpackLoaderTask(Project project) {

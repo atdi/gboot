@@ -33,14 +33,14 @@ class GBootPluginTest {
 
     @Test
     void testJarPass() {
-        project.gBoot {startClass = "com.play.Main"}
+        project.gBoot {startClass = "com.test.TestPlugin"}
         project.tasks.jar.execute()
         assertTrue(project.tasks.jar.getState().executed)
     }
 
     @Test
     void testJarPassWithLoaderConf() {
-        project.gBoot {startClass = "com.play.Main"}
+        project.gBoot {startClass = "com.test.TestPlugin"}
         project.tasks.compileJava.execute()
         project.tasks.unpackLoader.execute()
         project.tasks.jar.execute()
@@ -48,6 +48,14 @@ class GBootPluginTest {
         assertTrue(project.tasks.jar.getState().executed)
         assertTrue(project.file("$project.buildDir/classes/main/com/github/atdi").exists())
 
+    }
+
+    @Test
+    void testGBootRunTask() {
+        project.gBoot {startClass = "com.test.TestPlugin"}
+        project.tasks.compileJava.execute()
+        project.tasks.unpackLoader.execute()
+        project.tasks.gBootRun.execute()
     }
 
 
