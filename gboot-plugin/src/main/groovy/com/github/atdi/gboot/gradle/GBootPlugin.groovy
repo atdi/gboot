@@ -15,6 +15,7 @@
  */
 package com.github.atdi.gboot.gradle
 
+import com.github.atdi.gboot.gradle.tasks.GBootRunTask
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -30,6 +31,11 @@ import org.gradle.api.tasks.bundling.ZipEntryCompression
  */
 class GBootPlugin implements Plugin<Project> {
 
+    public static final String GBOOT_RUN_TASK = 'gBootRun'
+
+    public static final String UNPACK_LOADER_TASK = "unpackLoader"
+    public static final String COMPILE_JAVA_TASK = 'compileJava'
+
     @Override
     void apply(Project project) {
         project.getExtensions().create("gBoot", GBootPluginExtension)
@@ -39,6 +45,8 @@ class GBootPlugin implements Plugin<Project> {
         createDefaultConfigurations(project)
 
         Task unpackLoader = createUnpackLoaderTask(project)
+
+        createGBootRunTask(project)
 
         overrideJarTask(project, unpackLoader)
 
@@ -69,8 +77,14 @@ class GBootPlugin implements Plugin<Project> {
         }
     }
 
+    private createGBootRunTask(Project project) {
+        Task gBootRunTask = project.tasks.create(GBOOT_RUN_TASK, GBootRunTask)
+        gBootRunTask.description = 'Run your java application'
+        gBootRunTask.dependsOn(UNPACK_LOADER_TASK)
+    }
+
     private createUnpackLoaderTask(Project project) {
-        project.task("unpackLoader", type: Copy) {
+        Task unpackLoader = project.task(UNPACK_LOADER_TASK, type: Copy) {
             from {
                 project.configurations.loader.collect {
                     project.zipTree(it)
@@ -82,6 +96,8 @@ class GBootPlugin implements Plugin<Project> {
 
             includeEmptyDirs = false
         }
+        unpackLoader.description = 'Unpack the class loader jar specified for loader configuration.'
+        unpackLoader.dependsOn(COMPILE_JAVA_TASK)
     }
 
     /**
