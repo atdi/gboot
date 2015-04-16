@@ -29,6 +29,10 @@ bintray {
         version {
             name = project.version
             vcsTag = "RELEASE-$version"
+            desc = 'Class loader for fatjars created with gboot-plugin.'
+            gpg {
+                sign = true
+            }
         }
     }
 }
@@ -73,9 +77,6 @@ findbugs {
 findbugsTest.enabled = false
 pmdTest.enabled = false
 
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     provided group: 'com.google.code.findbugs', name: 'annotations', version: '3.0.0'

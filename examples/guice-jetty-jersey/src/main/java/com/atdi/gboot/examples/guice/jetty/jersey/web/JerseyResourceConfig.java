@@ -10,19 +10,12 @@ import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
 import javax.inject.Inject;
 
-public class JerseyResourceConfig extends ResourceConfig {
+public class JerseyResourceConfig extends AbstractResourceConfig {
 
     @Inject
     public JerseyResourceConfig(ServiceLocator serviceLocator) {
+        super(serviceLocator, new PersistenceModule("demo-guice-boot"));
         // Set package to look for resources in
         packages("com.atdi.gboot.examples.guice.jetty.jersey.resources");
-
-        //log.info("Registering injectables...");
-
-        GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
-
-        GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
-        guiceBridge.bridgeGuiceInjector(Guice.createInjector(new PersistenceModule("demo-guice-boot")));
-
     }
 }

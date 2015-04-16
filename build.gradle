@@ -17,6 +17,7 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        jcenter()
     }
 
     group = 'com.github.atdi.gboot'

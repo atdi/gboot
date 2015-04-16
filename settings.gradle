@@ -10,3 +10,6 @@ rootProject.children.find { it.name == 'examples/guice-jetty-jersey' }.name = 'g
 include 'examples/guice-tomcat-jersey'
 rootProject.children.find { it.name == 'examples/guice-tomcat-jersey' }.name = 'guice-tomcat-jersey'
 
+include 'starters/guice-jetty-jersey-starter'
+rootProject.children.find { it.name == 'starters/guice-jetty-jersey-starter' }.name = 'guice-jetty-jersey-starter'
+
