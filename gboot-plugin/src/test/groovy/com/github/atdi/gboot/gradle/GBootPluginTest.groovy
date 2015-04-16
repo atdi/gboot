@@ -33,21 +33,29 @@ class GBootPluginTest {
 
     @Test
     void testJarPass() {
-        project.gBoot {startClass = "com.play.Main"}
+        project.gBoot {startClass = "com.test.TestPlugin"}
         project.tasks.jar.execute()
         assertTrue(project.tasks.jar.getState().executed)
     }
 
     @Test
     void testJarPassWithLoaderConf() {
-        project.gBoot {startClass = "com.play.Main"}
+        project.gBoot {startClass = "com.test.TestPlugin"}
         project.tasks.compileJava.execute()
         project.tasks.unpackLoader.execute()
         project.tasks.jar.execute()
         assertTrue(project.tasks.unpackLoader.getState().executed)
         assertTrue(project.tasks.jar.getState().executed)
-        assertTrue(project.file("$project.buildDir/classes/main/lombok").exists())
+        assertTrue(project.file("$project.buildDir/classes/main/com/github/atdi").exists())
 
+    }
+
+    @Test
+    void testGBootRunTask() {
+        project.gBoot {startClass = "com.test.TestPlugin"}
+        project.tasks.compileJava.execute()
+        project.tasks.unpackLoader.execute()
+        project.tasks.gBootRun.execute()
     }
 
 
@@ -59,12 +67,12 @@ class GBootPluginTest {
         project.apply plugin: 'com.github.atdi.gboot'
         project.apply plugin: 'java'
         project.repositories {
-            mavenLocal()
+            jcenter()
             mavenCentral()
         }
 
         project.dependencies {
-            loader('org.projectlombok:lombok:1.16.2')
+            loader('com.github.atdi.gboot:gboot-loader:0.1.1')
             compile("org.eclipse.jetty:jetty-server:9.2.10.v20150310")
             testCompile("junit:junit:4.12")
         }
