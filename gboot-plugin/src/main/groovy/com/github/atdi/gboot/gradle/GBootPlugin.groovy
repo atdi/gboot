@@ -80,7 +80,7 @@ class GBootPlugin implements Plugin<Project> {
     private createGBootRunTask(Project project) {
         Task gBootRunTask = project.tasks.create(GBOOT_RUN_TASK, GBootRunTask)
         gBootRunTask.description = 'Run your java application'
-        gBootRunTask.dependsOn(UNPACK_LOADER_TASK)
+        gBootRunTask.dependsOn(COMPILE_JAVA_TASK)
         gBootRunTask.doFirst {
             main = project.gBoot.startClass
             classpath = project.sourceSets.main.runtimeClasspath
@@ -101,7 +101,6 @@ class GBootPlugin implements Plugin<Project> {
             includeEmptyDirs = false
         }
         unpackLoader.description = 'Unpack the class loader jar specified for loader configuration.'
-        unpackLoader.dependsOn(COMPILE_JAVA_TASK)
     }
 
     /**
