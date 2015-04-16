@@ -8,7 +8,9 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.jvnet.hk2.guice.bridge.api.GuiceBridge;
 import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
+
 public abstract class AbstractResourceConfig extends ResourceConfig {
+
 
     protected AbstractResourceConfig(ServiceLocator serviceLocator,
                                      Module... modules) {

@@ -29,37 +29,42 @@ public class GBootApplication {
     private String jerseyRootPath ;
 
     public GBootApplication(String resourceConfigClassName, String args[]) {
-        readProperties(args);
+        AppConfigurationModule configurationModule = readProperties(args);
         server = new Server(port);
-        ServletContextHandler sch = new ServletContextHandler(server, "/");
-        sch.addServlet(DefaultServlet.class, "/");
+        ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/");
+        servletContextHandler.addServlet(DefaultServlet.class, "/");
 
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName);
-        sch.addServlet(jerseyServletHolder, "/" + jerseyRootPath + "/*");
+        servletContextHandler.addServlet(jerseyServletHolder, "/" + jerseyRootPath + "/*");
     }
 
-    private void readProperties(String[] args) {
+    private AppConfigurationModule readProperties(String[] args) {
         Properties props = new Properties();
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
+        try(InputStream resourceStream = loader.getResourceAsStream(APPLICATION_PROPERTIES)) {
+            props.load(resourceStream);
+        } catch (IOException e) {
+
+        }
+
         if(args != null && args.length > 0) {
             try(InputStream resourceStream = new FileInputStream(new File(args[0]))) {
                 props.load(resourceStream);}
             catch (IOException e) {
                 throw new RuntimeException("Specified properties file could not be found", e);
             }
-        } else {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-            try(InputStream resourceStream = loader.getResourceAsStream(APPLICATION_PROPERTIES)) {
-                props.load(resourceStream);
-            } catch (IOException e) {
-
-            }
         }
+
+
 
         port = Integer.valueOf(props.getProperty(SERVER_PORT, "8000"));
 
         jerseyRootPath = props.getProperty(JERSEY_SERVLET_ROOT_PATH, "api");
+
+        return new AppConfigurationModule(props);
 
     }
 
@@ -72,12 +77,5 @@ public class GBootApplication {
     public void stop() throws Exception {
         server.stop();
     }
-
-    //private int readProperty(String property, int defaultValue) {
-
-    //}
-
-
-
 
 }

@@ -13,3 +13,6 @@ rootProject.children.find { it.name == 'examples/guice-tomcat-jersey' }.name = '
 include 'starters/guice-jetty-jersey-starter'
 rootProject.children.find { it.name == 'starters/guice-jetty-jersey-starter' }.name = 'guice-jetty-jersey-starter'
 
+include 'starters/common'
+rootProject.children.find { it.name == 'starters/common' }.name = 'gboot-starters-common'
+

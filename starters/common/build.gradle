@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile("org.glassfish.jersey.core:jersey-server:$jerseyVersion")
+    compile("org.glassfish.hk2:guice-bridge:$guiceBridgeVersion")
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
