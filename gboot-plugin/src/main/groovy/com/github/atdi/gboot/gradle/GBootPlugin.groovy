@@ -101,6 +101,7 @@ class GBootPlugin implements Plugin<Project> {
             includeEmptyDirs = false
         }
         unpackLoader.description = 'Unpack the class loader jar specified for loader configuration.'
+        return unpackLoader
     }
 
     /**
