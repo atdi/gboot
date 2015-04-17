@@ -20,12 +20,13 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
 
+
 /**
  * Created by aurel on 4/17/15.
  */
 public class GuiceContextListener extends GuiceServletContextListener {
 
-    public static Injector injector;
+    private static Injector injector;
 
     Module module;
 
@@ -38,6 +39,10 @@ public class GuiceContextListener extends GuiceServletContextListener {
         if (injector == null) {
             injector = Guice.createInjector(module);
         }
+        return injector;
+    }
+
+    public static Injector getParentInjector() {
         return injector;
     }
 }

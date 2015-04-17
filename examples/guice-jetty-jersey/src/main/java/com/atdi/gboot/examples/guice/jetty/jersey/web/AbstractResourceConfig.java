@@ -18,6 +18,6 @@ public abstract class AbstractResourceConfig extends ResourceConfig {
         GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
 
         GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
-        guiceBridge.bridgeGuiceInjector(GuiceContextListener.injector.createChildInjector(modules));
+        guiceBridge.bridgeGuiceInjector(GuiceContextListener.getParentInjector().createChildInjector(modules));
     }
 }
