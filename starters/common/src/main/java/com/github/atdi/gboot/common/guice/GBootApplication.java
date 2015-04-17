@@ -16,6 +16,7 @@
 package com.github.atdi.gboot.common.guice;
 
 import com.github.atdi.gboot.common.guice.modules.AppConfigurationModule;
+import com.google.inject.Module;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,24 +32,24 @@ public abstract class GBootApplication {
 
     private static final String APPLICATION_PROPERTIES = "application.properties";
 
-    private static final String JERSEY_SERVLET_ROOT_PATH = "gboot.jersey.path";
+    protected static final String JERSEY_SERVLET_ROOT_PATH = "gboot.jersey.path";
 
-    private static final String SERVER_PORT = "gboot.server.port";
+    protected static final String SERVER_PORT = "gboot.server.port";
 
     private int port;
 
     private String jerseyRootPath;
 
-
+    private AppConfigurationModule configurationModule;
     /**
      * Default constructor.
      * @param args main class arguments
      */
     public GBootApplication(String args[]) {
-        AppConfigurationModule configurationModule = readProperties(args);
+        readProperties(args);
     }
 
-    private AppConfigurationModule readProperties(String[] args) {
+    private void readProperties(String[] args) {
         Properties props = new Properties();
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -73,13 +74,23 @@ public abstract class GBootApplication {
 
         jerseyRootPath = props.getProperty(JERSEY_SERVLET_ROOT_PATH, "api");
 
-        return new AppConfigurationModule(props);
-
+        configurationModule = new AppConfigurationModule(props);
     }
 
+    protected int getPort() {
+        return port;
+    }
+
+    protected String getJerseyRootPath() {
+        return jerseyRootPath;
+    }
+
+    protected Module getConfigurationModule() {
+        return configurationModule;
+    }
 
     /**
      * Start application.
      */
-    public abstract void start();
+    public abstract void start() throws Exception;
 }

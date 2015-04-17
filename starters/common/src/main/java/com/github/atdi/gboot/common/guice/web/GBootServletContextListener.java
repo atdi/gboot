@@ -15,7 +15,6 @@
  */
 package com.github.atdi.gboot.common.guice.web;
 
-import com.github.atdi.gboot.common.guice.modules.AppConfigurationModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -34,7 +33,7 @@ public class GBootServletContextListener extends GuiceServletContextListener {
      * Default constructor.
      * @param configurationModule the configuration module instance
      */
-    public GBootServletContextListener(AppConfigurationModule configurationModule) {
+    public GBootServletContextListener(Module configurationModule) {
         module = configurationModule;
         injector = Guice.createInjector(module);
     }
