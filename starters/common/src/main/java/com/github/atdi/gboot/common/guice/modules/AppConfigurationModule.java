@@ -13,10 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.atdi.gboot.common.guice;
+package com.github.atdi.gboot.common.guice.modules;
+
+import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
+
+import java.util.Properties;
 
 /**
- * Jersey abstract resource config.
+ * App configuration guice module.
  */
-public abstract class AbstractResourceConfig {
+public class AppConfigurationModule extends AbstractModule {
+
+    private final Properties properties;
+
+    /**
+     * Default constructor
+     * @param properties application properties.
+     */
+    public AppConfigurationModule(Properties properties) {
+        this.properties = properties;
+    }
+
+    @Override
+    protected void configure() {
+        Names.bindProperties(binder(), properties);
+    }
 }
