@@ -27,15 +27,13 @@ public class GBootServletContextListener extends GuiceServletContextListener {
 
     private static Injector injector;
 
-    private Module module;
 
     /**
      * Default constructor.
-     * @param configurationModule the configuration module instance
+     * @param modules initial modules
      */
-    public GBootServletContextListener(Module configurationModule) {
-        module = configurationModule;
-        injector = Guice.createInjector(module);
+    public GBootServletContextListener(Module... modules) {
+        injector = Guice.createInjector(modules);
     }
 
     /**

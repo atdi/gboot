@@ -15,7 +15,6 @@
  */
 package com.github.atdi.gboot.common.guice.web;
 
-import com.google.inject.Module;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.jvnet.hk2.guice.bridge.api.GuiceBridge;
@@ -29,12 +28,10 @@ public abstract class AbstractResourceConfig extends ResourceConfig {
     /**
      * Default constructor.
      * @param serviceLocator injected service locator by HK2 DI.
-     * @param modules additional guice modules
      */
-    protected AbstractResourceConfig(ServiceLocator serviceLocator,
-                                     Module... modules) {
+    protected AbstractResourceConfig(ServiceLocator serviceLocator) {
         GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
         GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
-        guiceBridge.bridgeGuiceInjector(GBootServletContextListener.getParentInjector().createChildInjector(modules));
+        guiceBridge.bridgeGuiceInjector(GBootServletContextListener.getParentInjector());
     }
 }

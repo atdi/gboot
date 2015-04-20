@@ -28,16 +28,16 @@ public class GuiceContextListener extends GuiceServletContextListener {
 
     private static Injector injector;
 
-    Module module;
+    Module[] modules;
 
-    public GuiceContextListener(AppConfigurationModule configurationModule) {
-        module = configurationModule;
+    public GuiceContextListener(Module... modules) {
+        this.modules = modules;
     }
 
     @Override
     protected Injector getInjector() {
         if (injector == null) {
-            injector = Guice.createInjector(module);
+            injector = Guice.createInjector(modules);
         }
         return injector;
     }

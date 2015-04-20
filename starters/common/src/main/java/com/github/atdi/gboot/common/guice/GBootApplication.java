@@ -93,4 +93,10 @@ public abstract class GBootApplication {
      * Start application.
      */
     public abstract void start() throws Exception;
+
+
+    /**
+     * Stop application.
+     */
+    public abstract void stop() throws Exception;
 }

@@ -1,9 +1,8 @@
 package com.atdi.gboot.examples.guice.jetty.jersey;
 
 
-import com.google.inject.Injector;
+import com.atdi.gboot.examples.guice.jetty.jersey.modules.PersistenceModule;
 import com.google.inject.servlet.GuiceFilter;
-import com.google.inject.servlet.GuiceServletContextListener;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -39,7 +38,7 @@ public class GBootApplication {
         ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/");
         servletContextHandler.addServlet(DefaultServlet.class, "/");
         servletContextHandler.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
-        servletContextHandler.addEventListener(new GuiceContextListener(configurationModule));
+        servletContextHandler.addEventListener(new GuiceContextListener(configurationModule, new PersistenceModule("demo-guice-boot")));
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName);
         servletContextHandler.addServlet(jerseyServletHolder, "/" + jerseyRootPath + "/*");

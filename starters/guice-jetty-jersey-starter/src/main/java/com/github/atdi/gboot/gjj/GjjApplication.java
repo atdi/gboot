@@ -17,6 +17,7 @@ package com.github.atdi.gboot.gjj;
 
 import com.github.atdi.gboot.common.guice.GBootApplication;
 import com.github.atdi.gboot.common.guice.web.GBootServletContextListener;
+import com.google.inject.Module;
 import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -27,11 +28,13 @@ import org.glassfish.jersey.servlet.ServletProperties;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
+import org.eclipse.jetty.server.session.AbstractSessionIdManager;
 
 /**
  * Embedded jetty application starter.
+ * @param <T> session id manager if you need clustering
  */
-public class GjjApplication extends GBootApplication {
+public class GjjApplication<T extends AbstractSessionIdManager> extends GBootApplication {
 
     private final Server server;
 
@@ -40,13 +43,16 @@ public class GjjApplication extends GBootApplication {
      * @param resourceConfigClassName jersey resource config class name
      * @param args main method arguments
      */
-    public GjjApplication(String resourceConfigClassName, String[] args) {
+    public GjjApplication(String resourceConfigClassName, String[] args, T sessionIdManager, Module... modules) {
         super(args);
         server = new Server(getPort());
+        if(sessionIdManager != null) {
+            server.setSessionIdManager(sessionIdManager);
+        }
         ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/");
         servletContextHandler.addServlet(DefaultServlet.class, "/");
         servletContextHandler.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
-        servletContextHandler.addEventListener(new GBootServletContextListener(getConfigurationModule()));
+        servletContextHandler.addEventListener(new GBootServletContextListener(modules));
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName);
         servletContextHandler.addServlet(jerseyServletHolder, "/" + getJerseyRootPath() + "/*");
@@ -56,5 +62,10 @@ public class GjjApplication extends GBootApplication {
     public void start() throws Exception {
         server.start();
         server.join();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        server.stop();
     }
 }
