@@ -1,6 +1,52 @@
 apply plugin: "com.jfrog.bintray"
 apply plugin: 'maven'
 
+ext.publish = true
+
+bintray {
+    user = project.ext.has('bintrayUser') ? project.ext.bintrayUser : ''
+    key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''
+    configurations = ['published', 'archives']
+    publish = project.publish
+    pkg {
+        repo = 'maven'
+        name = 'gboot-tomcat-jersey-starter'
+        desc = 'Class loader for fatjars created with gboot-plugin.'
+        labels = ['java','class', 'loader', 'microservices', 'embedded', 'tomcat']
+        licenses = ['Apache-2.0']
+        websiteUrl = 'https://github.com/atdi/gboot'
+        issueTrackerUrl = 'https://github.com/atdi/gboot/issues'
+        vcsUrl = 'https://github.com/atdi/gboot.git'
+        licenses = ['Apache-2.0']
+        publicDownloadNumbers = true
+        version {
+            name = project.version
+            vcsTag = "RELEASE-$version"
+            desc = 'Starter for guice with tomcat and jersey.'
+            gpg {
+                sign = true
+            }
+        }
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+// Add the sourceJars to non-extractor modules
+artifacts {
+    published sourceJar
+    published javadocJar
+}
+
+
 configurations {
     all*.exclude group: 'org.eclipse.jetty'
     all*.exclude group: 'io.undertow'
