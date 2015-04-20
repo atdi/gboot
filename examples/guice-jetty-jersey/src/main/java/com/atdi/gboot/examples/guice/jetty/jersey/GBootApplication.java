@@ -2,7 +2,6 @@ package com.atdi.gboot.examples.guice.jetty.jersey;
 
 
 import com.atdi.gboot.examples.guice.jetty.jersey.modules.PersistenceModule;
-import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -10,12 +9,10 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
 
-import javax.servlet.DispatcherType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.EnumSet;
 import java.util.Properties;
 
 public class GBootApplication {
@@ -38,7 +35,6 @@ public class GBootApplication {
         server = new Server(port);
         ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/");
         servletContextHandler.addServlet(DefaultServlet.class, "/");
-        servletContextHandler.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName);
         servletContextHandler.addServlet(jerseyServletHolder, "/" + jerseyRootPath + "/*");

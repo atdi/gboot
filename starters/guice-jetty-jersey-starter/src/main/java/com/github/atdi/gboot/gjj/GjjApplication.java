@@ -18,16 +18,12 @@ package com.github.atdi.gboot.gjj;
 import com.github.atdi.gboot.common.guice.GBootApplication;
 import com.github.atdi.gboot.common.guice.web.GuiceInjectorCreator;
 import com.google.inject.Module;
-import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
-
-import javax.servlet.DispatcherType;
-import java.util.EnumSet;
 import org.eclipse.jetty.server.session.AbstractSessionIdManager;
 
 /**
@@ -53,7 +49,6 @@ public class GjjApplication<T extends AbstractSessionIdManager> extends GBootApp
         }
         ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/");
         servletContextHandler.addServlet(DefaultServlet.class, "/");
-        servletContextHandler.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
         Module[] tempModules = new Module[1];
         int moduleIndex = 0;
         if(modules == null) {

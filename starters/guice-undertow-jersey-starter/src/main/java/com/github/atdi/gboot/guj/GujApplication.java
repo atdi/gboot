@@ -18,11 +18,20 @@ package com.github.atdi.gboot.guj;
 import com.github.atdi.gboot.common.guice.GBootApplication;
 import com.github.atdi.gboot.common.guice.web.GuiceInjectorCreator;
 import com.google.inject.Module;
+import io.undertow.Handlers;
 import io.undertow.Undertow;
+import io.undertow.server.handlers.PathHandler;
 import io.undertow.server.session.InMemorySessionManager;
 import io.undertow.server.session.SessionAttachmentHandler;
 import io.undertow.server.session.SessionCookieConfig;
 import io.undertow.server.session.SessionManager;
+import io.undertow.servlet.Servlets;
+import io.undertow.servlet.api.DeploymentInfo;
+import io.undertow.servlet.api.DeploymentManager;
+import org.glassfish.jersey.servlet.ServletContainer;
+import org.glassfish.jersey.servlet.ServletProperties;
+
+import javax.servlet.ServletException;
 
 /**
  * Embedded undertow application starter.
@@ -36,7 +45,7 @@ public class GujApplication<T extends SessionManager> extends GBootApplication {
      *
      * @param args main class arguments
      */
-    public GujApplication(String resourceConfigClassName, String[] args, T sessionManager, Module... modules) {
+    public GujApplication(String resourceConfigClassName, String[] args, T sessionManager, Module... modules) throws ServletException {
         super(args);
         // Modules
         Module[] tempModules = new Module[1];
@@ -47,6 +56,19 @@ public class GujApplication<T extends SessionManager> extends GBootApplication {
         }
         tempModules[moduleIndex] = getConfigurationModule();
         GuiceInjectorCreator.createInjector(tempModules);
+        DeploymentInfo servletBuilder = Servlets.deployment()
+                .setClassLoader(Thread.currentThread().getContextClassLoader())
+                .setContextPath("/")
+                .setDeploymentName("application.war")
+                .addServlets(
+                        Servlets.servlet("restServlet", ServletContainer.class)
+                                .addInitParam(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName)
+                                .addMapping("/" + getJerseyRootPath()  + "/*"));
+
+        DeploymentManager manager = Servlets.defaultContainer().addDeployment(servletBuilder);
+        manager.deploy();
+        PathHandler path = Handlers.path(Handlers.redirect("/"))
+                .addPrefixPath("/", manager.start());
         SessionManager tempSessionManager = sessionManager;
         if(sessionManager == null) {
             tempSessionManager = new InMemorySessionManager("SESSION_MANAGER");
@@ -54,6 +76,8 @@ public class GujApplication<T extends SessionManager> extends GBootApplication {
 
         SessionAttachmentHandler handler = new SessionAttachmentHandler(tempSessionManager,
                 new SessionCookieConfig());
+        handler.setNext(path);
+
         server = Undertow.builder()
                 .addHttpListener(getPort(), "0.0.0.0")
                 .setHandler(handler).build();
