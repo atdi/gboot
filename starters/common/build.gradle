@@ -4,7 +4,6 @@ apply plugin: 'maven'
 
 dependencies {
     compile("com.google.inject:guice:$guiceVersion")
-    compile("com.google.inject.extensions:guice-servlet:$guiceVersion")
     compile("org.glassfish.jersey.core:jersey-server:$jerseyVersion")
     compile("org.glassfish.hk2:guice-bridge:$guiceBridgeVersion")
     // Embedded jetty dependencies

@@ -34,11 +34,11 @@ public class GBootApplication {
 
     public GBootApplication(String resourceConfigClassName, String args[]) {
         AppConfigurationModule configurationModule = readProperties(args);
+        GuiceInjectorCreator.createInjector(configurationModule, new PersistenceModule("demo-guice-boot"));
         server = new Server(port);
         ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/");
         servletContextHandler.addServlet(DefaultServlet.class, "/");
         servletContextHandler.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
-        servletContextHandler.addEventListener(new GuiceContextListener(configurationModule, new PersistenceModule("demo-guice-boot")));
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName);
         servletContextHandler.addServlet(jerseyServletHolder, "/" + jerseyRootPath + "/*");

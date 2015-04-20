@@ -1,8 +1,7 @@
 package com.atdi.gboot.examples.guice.jetty.jersey.web;
 
 
-import com.atdi.gboot.examples.guice.jetty.jersey.GuiceContextListener;
-import com.google.inject.Guice;
+import com.atdi.gboot.examples.guice.jetty.jersey.GuiceInjectorCreator;
 import com.google.inject.Module;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -18,6 +17,6 @@ public abstract class AbstractResourceConfig extends ResourceConfig {
         GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
 
         GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
-        guiceBridge.bridgeGuiceInjector(GuiceContextListener.getParentInjector().createChildInjector(modules));
+        guiceBridge.bridgeGuiceInjector(GuiceInjectorCreator.getParentInjector().createChildInjector(modules));
     }
 }

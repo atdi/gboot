@@ -16,7 +16,7 @@
 package com.github.atdi.gboot.gtj;
 
 import com.github.atdi.gboot.common.guice.GBootApplication;
-import com.github.atdi.gboot.common.guice.web.GBootServletContextListener;
+import com.github.atdi.gboot.common.guice.web.GuiceInjectorCreator;
 import com.google.inject.Module;
 import org.apache.catalina.Context;
 import org.apache.catalina.Manager;
@@ -59,8 +59,7 @@ public class GtjApplication<T extends Manager> extends GBootApplication {
             moduleIndex = modules.length;
         }
         tempModules[moduleIndex] = getConfigurationModule();
-        GBootServletContextListener.createInjector(tempModules);
-        rootCtx.addApplicationListener(GBootServletContextListener.class.getName());
+        GuiceInjectorCreator.createInjector(tempModules);
         Wrapper wrapper = Tomcat.addServlet(rootCtx, "restServlet",
                 new ServletContainer());
         wrapper.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,

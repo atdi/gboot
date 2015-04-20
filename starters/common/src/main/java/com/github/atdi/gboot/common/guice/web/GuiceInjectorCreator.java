@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 the original author or authors.
+ * Copyright 2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,36 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.jersey;
+package com.github.atdi.gboot.common.guice.web;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.servlet.GuiceServletContextListener;
-
 
 /**
- * Created by aurel on 4/17/15.
+ * Guice Servlet context listener.
  */
-public class GuiceContextListener extends GuiceServletContextListener {
+public class GuiceInjectorCreator {
 
     private static Injector injector;
 
-    Module[] modules;
+    private GuiceInjectorCreator() {}
 
-    public GuiceContextListener(Module... modules) {
-        this.modules = modules;
-    }
-
-    @Override
-    protected Injector getInjector() {
-        if (injector == null) {
-            injector = Guice.createInjector(modules);
-        }
-        return injector;
-    }
-
+    /**
+     * Static method for getting the parent injector
+     * in the resource config class.
+     * @return parent injector
+     */
     public static Injector getParentInjector() {
         return injector;
+    }
+
+    public static void createInjector(Module... modules) {
+        injector = Guice.createInjector(modules);
     }
 }

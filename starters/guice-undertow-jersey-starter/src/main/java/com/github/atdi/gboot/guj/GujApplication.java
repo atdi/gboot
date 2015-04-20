@@ -16,13 +16,13 @@
 package com.github.atdi.gboot.guj;
 
 import com.github.atdi.gboot.common.guice.GBootApplication;
+import com.github.atdi.gboot.common.guice.web.GuiceInjectorCreator;
+import com.google.inject.Module;
 import io.undertow.Undertow;
-import io.undertow.server.HttpHandler;
-import io.undertow.server.HttpServerExchange;
+import io.undertow.server.session.InMemorySessionManager;
 import io.undertow.server.session.SessionAttachmentHandler;
 import io.undertow.server.session.SessionCookieConfig;
 import io.undertow.server.session.SessionManager;
-import io.undertow.util.Headers;
 
 /**
  * Embedded undertow application starter.
@@ -36,18 +36,27 @@ public class GujApplication<T extends SessionManager> extends GBootApplication {
      *
      * @param args main class arguments
      */
-    public GujApplication(String[] args, T sessionManager) {
+    public GujApplication(String resourceConfigClassName, String[] args, T sessionManager, Module... modules) {
         super(args);
-        SessionAttachmentHandler handler = new SessionAttachmentHandler(sessionManager, new SessionCookieConfig());
+        // Modules
+        Module[] tempModules = new Module[1];
+        int moduleIndex = 0;
+        if(modules == null) {
+            tempModules = new Module[modules.length+1];
+            moduleIndex = modules.length;
+        }
+        tempModules[moduleIndex] = getConfigurationModule();
+        GuiceInjectorCreator.createInjector(tempModules);
+        SessionManager tempSessionManager = sessionManager;
+        if(sessionManager == null) {
+            tempSessionManager = new InMemorySessionManager("SESSION_MANAGER");
+        }
+
+        SessionAttachmentHandler handler = new SessionAttachmentHandler(tempSessionManager,
+                new SessionCookieConfig());
         server = Undertow.builder()
                 .addHttpListener(getPort(), "0.0.0.0")
-                .setHandler(new HttpHandler() {
-                    @Override
-                    public void handleRequest(final HttpServerExchange exchange) throws Exception {
-                        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain");
-                        exchange.getResponseSender().send("Hello World");
-                    }
-                }).build();
+                .setHandler(handler).build();
 
     }
 

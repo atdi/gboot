@@ -16,7 +16,7 @@
 package com.github.atdi.gboot.gjj;
 
 import com.github.atdi.gboot.common.guice.GBootApplication;
-import com.github.atdi.gboot.common.guice.web.GBootServletContextListener;
+import com.github.atdi.gboot.common.guice.web.GuiceInjectorCreator;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Server;
@@ -61,9 +61,7 @@ public class GjjApplication<T extends AbstractSessionIdManager> extends GBootApp
             moduleIndex = modules.length;
         }
         tempModules[moduleIndex] = getConfigurationModule();
-        GBootServletContextListener listener = new GBootServletContextListener();
-        GBootServletContextListener.createInjector(tempModules);
-        servletContextHandler.addEventListener(listener);
+        GuiceInjectorCreator.createInjector(tempModules);
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName);
         servletContextHandler.addServlet(jerseyServletHolder, "/" + getJerseyRootPath() + "/*");
