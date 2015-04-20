@@ -42,6 +42,8 @@ public class GjjApplication<T extends AbstractSessionIdManager> extends GBootApp
      * Constructor.
      * @param resourceConfigClassName jersey resource config class name
      * @param args main method arguments
+     * @param sessionIdManager session manager for clustered configurations
+     * @param modules additional guice modules
      */
     public GjjApplication(String resourceConfigClassName, String[] args, T sessionIdManager, Module... modules) {
         super(args);

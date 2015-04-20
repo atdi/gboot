@@ -34,10 +34,13 @@ import java.io.File;
 public class GtjApplication<T extends Manager> extends GBootApplication {
 
     private Tomcat tomcat;
+
     /**
-     * Default constructor.
-     *
-     * @param args main class arguments
+     * Constructor.
+     * @param resourceConfigClassName resource configuration class name
+     * @param args input arguments
+     * @param sessionManager session manager
+     * @param modules additional guice modules
      */
     public GtjApplication(String resourceConfigClassName, String[] args, T sessionManager, Module... modules) {
         super(args);
