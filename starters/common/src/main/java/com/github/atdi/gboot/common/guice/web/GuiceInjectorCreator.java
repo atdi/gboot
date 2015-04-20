@@ -13,20 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.jersey;
+package com.github.atdi.gboot.common.guice.web;
 
-import com.atdi.gboot.examples.guice.jetty.jersey.web.JerseyResourceConfig;
-
-import java.io.File;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
- * Main class.
+ * Guice Servlet context listener.
  */
-public class Bootstrap {
+public class GuiceInjectorCreator {
 
-    public static void main(String args[]) throws Exception {
-        GBootApplication application = new GBootApplication(
-                JerseyResourceConfig.class.getCanonicalName(), args);
-        application.start();
+    private static Injector injector;
+
+    private GuiceInjectorCreator() {}
+
+    /**
+     * Static method for getting the parent injector
+     * in the resource config class.
+     * @return parent injector
+     */
+    public static Injector getParentInjector() {
+        return injector;
+    }
+
+    public static void createInjector(Module... modules) {
+        injector = Guice.createInjector(modules);
     }
 }

@@ -1,7 +1,6 @@
 apply plugin: "com.jfrog.bintray"
 apply plugin: 'maven'
 
-
 ext.publish = true
 
 bintray {
@@ -11,9 +10,9 @@ bintray {
     publish = project.publish
     pkg {
         repo = 'maven'
-        name = 'gboot-loader'
+        name = 'gboot-jetty-jersey-starter'
         desc = 'Class loader for fatjars created with gboot-plugin.'
-        labels = ['java','class', 'loader', 'microservices', 'embedded']
+        labels = ['java','class', 'loader', 'microservices', 'embedded', 'jetty']
         licenses = ['Apache-2.0']
         websiteUrl = 'https://github.com/atdi/gboot'
         issueTrackerUrl = 'https://github.com/atdi/gboot/issues'
@@ -23,7 +22,7 @@ bintray {
         version {
             name = project.version
             vcsTag = "RELEASE-$version"
-            desc = 'Class loader for fatjars created with gboot-plugin.'
+            desc = 'Starter for guice with jetty and jersey.'
             gpg {
                 sign = true
             }
@@ -48,10 +47,12 @@ artifacts {
 }
 
 
+configurations {
+    all*.exclude group: 'org.apache.tomcat.embed'
+    all*.exclude group: 'io.undertow'
+}
+
 dependencies {
-    provided group: 'com.google.code.findbugs', name: 'annotations', version: '3.0.0'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
-    testCompile ('org.mockito:mockito-all:1.10.19')
+    compile project(":gboot-starters-common")
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }

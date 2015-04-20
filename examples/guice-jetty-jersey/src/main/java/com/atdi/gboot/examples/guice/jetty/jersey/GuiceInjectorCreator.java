@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright 2012-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,23 @@
  */
 package com.atdi.gboot.examples.guice.jetty.jersey;
 
-import com.atdi.gboot.examples.guice.jetty.jersey.web.JerseyResourceConfig;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 
-import java.io.File;
 
 /**
- * Main class.
+ * Created by aurel on 4/17/15.
  */
-public class Bootstrap {
+public class GuiceInjectorCreator {
 
-    public static void main(String args[]) throws Exception {
-        GBootApplication application = new GBootApplication(
-                JerseyResourceConfig.class.getCanonicalName(), args);
-        application.start();
+    private static Injector injector;
+
+    public static void createInjector(Module... modules) {
+        injector = Guice.createInjector(modules);
+    }
+
+    public static Injector getParentInjector() {
+        return injector;
     }
 }

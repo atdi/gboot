@@ -18,7 +18,9 @@ package com.atdi.gboot.examples.guice.jetty.jersey.resources;
 import com.atdi.gboot.examples.guice.jetty.jersey.model.User;
 import com.atdi.gboot.examples.guice.jetty.jersey.model.UserBuilder;
 import com.atdi.gboot.examples.guice.jetty.jersey.services.UserService;
+
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

@@ -10,3 +10,15 @@ rootProject.children.find { it.name == 'examples/guice-jetty-jersey' }.name = 'g
 include 'examples/guice-tomcat-jersey'
 rootProject.children.find { it.name == 'examples/guice-tomcat-jersey' }.name = 'guice-tomcat-jersey'
 
+include 'starters/guice-jetty-jersey-starter'
+rootProject.children.find { it.name == 'starters/guice-jetty-jersey-starter' }.name = 'guice-jetty-jersey-starter'
+
+include 'starters/common'
+rootProject.children.find { it.name == 'starters/common' }.name = 'gboot-starters-common'
+
+include 'starters/guice-tomcat-jersey-starter'
+rootProject.children.find { it.name == 'starters/guice-tomcat-jersey-starter' }.name = 'guice-tomcat-jersey-starter'
+
+include 'starters/guice-undertow-jersey-starter'
+rootProject.children.find { it.name == 'starters/guice-undertow-jersey-starter' }.name = 'guice-undertow-jersey-starter'
+

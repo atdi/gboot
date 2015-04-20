@@ -13,20 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.atdi.gboot.examples.guice.jetty.jersey;
+package com.github.atdi.gboot.common.guice.modules;
 
-import com.atdi.gboot.examples.guice.jetty.jersey.web.JerseyResourceConfig;
+import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 
-import java.io.File;
+import java.util.Properties;
 
 /**
- * Main class.
+ * App configuration guice module.
  */
-public class Bootstrap {
+public class AppConfigurationModule extends AbstractModule {
 
-    public static void main(String args[]) throws Exception {
-        GBootApplication application = new GBootApplication(
-                JerseyResourceConfig.class.getCanonicalName(), args);
-        application.start();
+    private final Properties properties;
+
+    /**
+     * Default constructor
+     * @param properties application properties.
+     */
+    public AppConfigurationModule(Properties properties) {
+        this.properties = properties;
+    }
+
+    @Override
+    protected void configure() {
+        Names.bindProperties(binder(), properties);
     }
 }
