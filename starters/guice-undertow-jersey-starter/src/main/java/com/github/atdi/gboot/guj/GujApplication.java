@@ -35,15 +35,20 @@ import javax.servlet.ServletException;
 
 /**
  * Embedded undertow application starter.
+ * @param <T> clustering session manager
  */
 public class GujApplication<T extends SessionManager> extends GBootApplication {
 
     private Undertow server;
 
+
     /**
-     * Default constructor.
-     *
-     * @param args main class arguments
+     * Constructor.
+     * @param resourceConfigClassName
+     * @param args
+     * @param sessionManager
+     * @param modules
+     * @throws ServletException
      */
     public GujApplication(String resourceConfigClassName, String[] args, T sessionManager, Module... modules) throws ServletException {
         super(args);
@@ -91,7 +96,7 @@ public class GujApplication<T extends SessionManager> extends GBootApplication {
 
     @Override
     public void join() throws Exception {
-        // Do nothing
+
     }
 
     @Override
