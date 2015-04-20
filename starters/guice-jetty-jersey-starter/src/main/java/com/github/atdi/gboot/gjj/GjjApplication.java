@@ -59,7 +59,9 @@ public class GjjApplication<T extends AbstractSessionIdManager> extends GBootApp
             moduleIndex = modules.length;
         }
         tempModules[moduleIndex] = getConfigurationModule();
-        servletContextHandler.addEventListener(new GBootServletContextListener(tempModules));
+        GBootServletContextListener listener = new GBootServletContextListener();
+        GBootServletContextListener.createInjector(tempModules);
+        servletContextHandler.addEventListener(listener);
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName);
         servletContextHandler.addServlet(jerseyServletHolder, "/" + getJerseyRootPath() + "/*");

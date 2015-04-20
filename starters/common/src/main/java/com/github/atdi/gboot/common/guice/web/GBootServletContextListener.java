@@ -30,10 +30,8 @@ public class GBootServletContextListener extends GuiceServletContextListener {
 
     /**
      * Default constructor.
-     * @param modules initial modules
      */
-    public GBootServletContextListener(Module... modules) {
-        injector = Guice.createInjector(modules);
+    public GBootServletContextListener() {
     }
 
     /**
@@ -52,5 +50,9 @@ public class GBootServletContextListener extends GuiceServletContextListener {
      */
     public static Injector getParentInjector() {
         return injector;
+    }
+
+    public static void createInjector(Module... modules) {
+        injector = Guice.createInjector(modules);
     }
 }

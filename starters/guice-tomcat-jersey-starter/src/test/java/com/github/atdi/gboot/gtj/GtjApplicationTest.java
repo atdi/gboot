@@ -1,7 +1,7 @@
-package com.github.atdi.gboot.gjj;
+package com.github.atdi.gboot.gtj;
 
 import com.github.atdi.gboot.common.guice.GBootApplication;
-import com.github.atdi.gboot.gjj.tests.utils.JerseyResourceConfig;
+import com.github.atdi.gboot.gtj.test.utils.JerseyResourceConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,20 +11,18 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class GjjApplicationTest {
-
+public class GtjApplicationTest {
     private GBootApplication application;
 
     private Client client;
 
     @Before
     public void setUp() throws Exception {
-        application = new GjjApplication<>(JerseyResourceConfig.class.getCanonicalName(), null, null);
+        application = new GtjApplication<>(JerseyResourceConfig.class.getCanonicalName(), null, null);
         application.start();
         client = ClientBuilder.newClient();
     }
@@ -44,5 +42,4 @@ public class GjjApplicationTest {
         assertNotNull(entity);
         assertEquals("Test", entity.get("user"));
     }
-
 }
