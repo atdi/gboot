@@ -3,7 +3,7 @@ apply plugin: 'maven'
 
 configurations {
     all*.exclude group: 'org.eclipse.jetty'
-    all*.exclude group: 'io.undertow'
+    all*.exclude group: 'org.apache.tomcat.embed'
 }
 
 dependencies {

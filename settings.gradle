@@ -19,3 +19,6 @@ rootProject.children.find { it.name == 'starters/common' }.name = 'gboot-starter
 include 'starters/guice-tomcat-jersey-starter'
 rootProject.children.find { it.name == 'starters/guice-tomcat-jersey-starter' }.name = 'guice-tomcat-jersey-starter'
 
+include 'starters/guice-undertow-jersey-starter'
+rootProject.children.find { it.name == 'starters/guice-undertow-jersey-starter' }.name = 'guice-undertow-jersey-starter'
+
