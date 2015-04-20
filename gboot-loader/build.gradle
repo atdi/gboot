@@ -31,12 +31,6 @@ bintray {
     }
 }
 
-configurations {
-    provided
-    runtime
-    published
-}
-
 task sourceJar(type: Jar) {
     from sourceSets.main.allSource
     classifier = 'sources'
@@ -51,17 +45,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     published sourceJar
     published javadocJar
-}
-
-compileJava.classpath += project.configurations.provided
-compileTestJava.classpath += project.configurations.provided
-
-idea {
-    module {
-        scopes.PROVIDED.plus += [ configurations.provided ]
-        scopes.RUNTIME.plus += [ configurations.runtime ]
-    }
-
 }
 
 

@@ -70,6 +70,23 @@ configure(subprojects.findAll{it.name != 'gboot-plugin'}) {
 
     project.version = scmVersion.version
 
+    configurations {
+        provided
+        runtime
+        published
+    }
+
+    compileJava.classpath += project.configurations.provided
+    compileTestJava.classpath += project.configurations.provided
+
+    idea {
+        module {
+            scopes.PROVIDED.plus += [ configurations.provided ]
+            scopes.RUNTIME.plus += [ configurations.runtime ]
+        }
+
+    }
+
 }
 
 
