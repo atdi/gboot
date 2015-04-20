@@ -1,11 +1,12 @@
 apply plugin: "com.jfrog.bintray"
 apply plugin: 'maven'
 
+configurations {
+    all*.exclude group: 'org.apache.tomcat.embed'
+}
 
 dependencies {
-    compile project(":gboot-starters-common") {
-        //exclude group: 'org.apache.tomcat.embed' //exclude tomcat dependencies
-    }
+    compile project(":gboot-starters-common")
     // Java inject dependencies
     compile("javax.inject:javax.inject:$javaxInjectVersion")
     // Jersey dependencies

@@ -6,16 +6,27 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class GjjApplicationTest {
 
     private GBootApplication application;
 
+    private Client client;
+
     @Before
     public void setUp() throws Exception {
         application = new GjjApplication<>(JerseyResourceConfig.class.getCanonicalName(), null, null);
         application.start();
+        client = ClientBuilder.newClient();
     }
 
     @After
@@ -25,7 +36,12 @@ public class GjjApplicationTest {
 
     @Test
     public void testGet() {
-
+        WebTarget webTarget = client.target("http://localhost:8000/api/test");
+        Response response = webTarget
+                .request(MediaType.APPLICATION_JSON_TYPE).get();
+        Map<String, String> entity = response.readEntity(Map.class);
+        assertNotNull(entity);
+        assertEquals("Test", entity.get("user"));
     }
 
 }
