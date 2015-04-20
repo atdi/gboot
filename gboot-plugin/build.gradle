@@ -1,9 +1,3 @@
-plugins {
-    id 'groovy'
-    id 'jacoco'
-    id 'nu.studer.plugindev' version '1.0.3'
-}
-
 bintray {
     user = project.ext.has('bintrayUser') ? project.ext.bintrayUser : ''
     key = project.ext.has('bintrayApiKey') ? project.ext.bintrayApiKey : ''

@@ -1,21 +1,15 @@
-apply plugin: 'java'
+apply plugin: "com.jfrog.bintray"
+apply plugin: 'maven'
 
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-    jcenter()
-}
 
 dependencies {
-    compile project(":gboot-starters-common")
+    compile project(":gboot-starters-common") {
+        //exclude group: 'org.apache.tomcat.embed' //exclude tomcat dependencies
+    }
     // Java inject dependencies
     compile("javax.inject:javax.inject:$javaxInjectVersion")
     // Jersey dependencies
     compile("org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion")
     compile("org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion")
-    // Embedded jetty dependencies
-    compile("org.eclipse.jetty:jetty-server:$jettyVersion")
-    compile("org.eclipse.jetty:jetty-servlet:$jettyVersion")
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

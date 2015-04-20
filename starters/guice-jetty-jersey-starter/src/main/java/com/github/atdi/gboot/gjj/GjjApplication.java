@@ -52,7 +52,14 @@ public class GjjApplication<T extends AbstractSessionIdManager> extends GBootApp
         ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/");
         servletContextHandler.addServlet(DefaultServlet.class, "/");
         servletContextHandler.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
-        servletContextHandler.addEventListener(new GBootServletContextListener(modules));
+        Module[] tempModules = new Module[1];
+        int moduleIndex = 0;
+        if(modules == null) {
+            tempModules = new Module[modules.length+1];
+            moduleIndex = modules.length;
+        }
+        tempModules[moduleIndex] = getConfigurationModule();
+        servletContextHandler.addEventListener(new GBootServletContextListener(tempModules));
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, resourceConfigClassName);
         servletContextHandler.addServlet(jerseyServletHolder, "/" + getJerseyRootPath() + "/*");
@@ -61,6 +68,10 @@ public class GjjApplication<T extends AbstractSessionIdManager> extends GBootApp
     @Override
     public void start() throws Exception {
         server.start();
+    }
+
+    @Override
+    public void join() throws Exception {
         server.join();
     }
 

@@ -55,7 +55,9 @@ public abstract class GBootApplication {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
         try(InputStream resourceStream = loader.getResourceAsStream(APPLICATION_PROPERTIES)) {
-            props.load(resourceStream);
+            if(resourceStream != null) {
+                props.load(resourceStream);
+            }
         } catch (IOException e) {
 
         }
@@ -93,6 +95,12 @@ public abstract class GBootApplication {
      * Start application.
      */
     public abstract void start() throws Exception;
+
+
+    /**
+     * Join app thread.
+     */
+    public abstract void join() throws Exception;
 
 
     /**

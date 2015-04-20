@@ -1,12 +1,6 @@
-plugins {
-    id 'java'
-    id 'jacoco'
-    id 'pmd'
-    id 'findbugs'
-    id 'idea'
-    id "com.jfrog.bintray" version "1.1"
-    id "maven"
-}
+apply plugin: "com.jfrog.bintray"
+apply plugin: 'maven'
+
 
 ext.publish = true
 
@@ -69,13 +63,6 @@ idea {
     }
 
 }
-
-findbugs {
-    ignoreFailures = true
-}
-
-findbugsTest.enabled = false
-pmdTest.enabled = false
 
 
 dependencies {

@@ -1,5 +1,15 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'nu.studer:gradle-plugindev-plugin:1.0.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.1'
+    }
+}
+
 plugins {
-    id 'pl.allegro.tech.build.axion-release' version '1.2.0'
+    id 'pl.allegro.tech.build.axion-release' version '1.2.3'
 }
 
 scmVersion {
@@ -13,7 +23,43 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
 
-subprojects {
+configure(subprojects.findAll{it.name == 'gboot-plugin'}) {
+    apply plugin: 'groovy'
+    apply plugin: 'jacoco'
+    apply plugin: 'nu.studer.plugindev'
+
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    group = 'com.github.atdi.gboot'
+
+    project.version = scmVersion.version
+}
+
+configure(subprojects.findAll{it.name != 'gboot-plugin'}) {
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    apply plugin: 'pmd'
+    apply plugin: 'findbugs'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+
+    findbugs {
+        ignoreFailures = true
+    }
+
+    pmd {
+        ignoreFailures = true
+    }
+
+    findbugsTest.enabled = false
+    pmdTest.enabled = false
+
     repositories {
         mavenLocal()
         mavenCentral()
