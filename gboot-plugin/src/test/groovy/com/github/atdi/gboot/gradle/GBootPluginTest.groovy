@@ -72,7 +72,7 @@ class GBootPluginTest {
         }
 
         project.dependencies {
-            loader('com.github.atdi.gboot:gboot-loader:0.1.1')
+            loader('com.github.atdi.gboot:gboot-loader:0.1.2')
             compile("org.eclipse.jetty:jetty-server:9.2.10.v20150310")
             testCompile("junit:junit:4.12")
         }
