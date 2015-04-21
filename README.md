@@ -5,7 +5,7 @@ spring-boot but with no additional dependency to any framework.
 
 Current version it is 0.1.2 and is coming with examples and few useful starters.
 
-Until a full documentation will be available you can have a look in the examples projects.
+For more details please have a look over documentation: https://github.com/atdi/gboot/wiki/Documentation
 
 ## Code Status
 
