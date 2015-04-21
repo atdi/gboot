@@ -10,9 +10,9 @@ bintray {
     publish = project.publish
     pkg {
         repo = 'maven'
-        name = 'gboot-undertow-jersey-starter'
-        desc = 'Starter for guice with undertow and jersey.'
-        labels = ['java','class', 'loader', 'microservices', 'embedded', 'undertow']
+        name = 'gboot-jms-starter'
+        desc = 'Starter for jms brokers integration.'
+        labels = ['java','class', 'loader', 'microservices', 'embedded', 'jms']
         licenses = ['Apache-2.0']
         websiteUrl = 'https://github.com/atdi/gboot'
         issueTrackerUrl = 'https://github.com/atdi/gboot/issues'
@@ -22,7 +22,7 @@ bintray {
         version {
             name = project.version
             vcsTag = "RELEASE-$version"
-            desc = 'Starter for guice with undertow and jersey.'
+            desc = 'Starter for guice itegration with JMS brokers.'
             gpg {
                 sign = true
             }
@@ -46,12 +46,12 @@ artifacts {
     published javadocJar
 }
 
+
 configurations {
     all*.exclude group: 'org.eclipse.jetty'
-    all*.exclude group: 'org.apache.tomcat.embed'
+    all*.exclude group: 'io.undertow'
 }
 
 dependencies {
-    compile project(":gboot-starters-common")
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

@@ -11,7 +11,7 @@ bintray {
     pkg {
         repo = 'maven'
         name = 'gboot-jetty-jersey-starter'
-        desc = 'Class loader for fatjars created with gboot-plugin.'
+        desc = 'Starter for guice with jetty and jersey.'
         labels = ['java','class', 'loader', 'microservices', 'embedded', 'jetty']
         licenses = ['Apache-2.0']
         websiteUrl = 'https://github.com/atdi/gboot'
