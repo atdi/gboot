@@ -21,7 +21,7 @@ import javax.jms.Message;
 /**
  * Jms template interface.
  */
-public interface GBootJmsTemplate extends AutoCloseable {
+public interface JmsTemplate extends AutoCloseable {
 
     /**
      * Put message on queue.

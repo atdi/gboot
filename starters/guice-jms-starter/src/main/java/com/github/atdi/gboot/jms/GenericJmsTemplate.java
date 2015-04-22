@@ -27,14 +27,14 @@ import javax.jms.Session;
 /**
  * JMS template impl.
  */
-public class GBootJmsTemplateImpl implements GBootJmsTemplate {
+public abstract class GenericJmsTemplate implements JmsTemplate {
 
     private final Session session;
     private final Destination destination;
     private final Connection connection;
 
     @Inject
-    public GBootJmsTemplateImpl(Session session, Destination destination,Connection connection) {
+    public GenericJmsTemplate(Session session, Destination destination, Connection connection) {
         this.session = session;
         this.destination = destination;
         this.connection=connection;

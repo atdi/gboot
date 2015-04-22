@@ -49,7 +49,7 @@ public class JmsModule extends AbstractModule {
         bind(Destination.class).toInstance(destination);
         bind(Session.class).toInstance(session);
         bind(Connection.class).toInstance(connection);
-        bind(GBootJmsTemplate.class).to(GBootJmsTemplateImpl.class);
+        bind(JmsTemplate.class).to(GenericJmsTemplate.class);
     }
 
     public static class Builder {
