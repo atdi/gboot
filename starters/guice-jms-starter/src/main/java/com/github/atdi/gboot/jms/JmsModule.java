@@ -16,6 +16,8 @@
 package com.github.atdi.gboot.jms;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -27,29 +29,30 @@ import javax.jms.Session;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Guice JMS module.
  */
 public class JmsModule extends AbstractModule {
 
-    private final Destination destination;
+    private final Map<String, Destination> destinations = new HashMap<>();
 
     private final Session session;
 
     private final Connection connection;
 
     private JmsModule(Session session, Destination destination, Connection connection) {
-        this.destination = destination;
+        this.destinations.put("", destination);
         this.session = session;
         this.connection = connection;
     }
 
     protected void configure() {
-        bind(Destination.class).toInstance(destination);
+        bind(Destination.class).annotatedWith(Names.named("")).toInstance(destinations.get(""));
         bind(Session.class).toInstance(session);
         bind(Connection.class).toInstance(connection);
-        bind(JmsTemplate.class).to(GenericJmsTemplate.class);
     }
 
     public static class Builder {

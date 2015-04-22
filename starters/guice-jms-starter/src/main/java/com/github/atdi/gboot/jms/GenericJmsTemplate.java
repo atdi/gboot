@@ -15,7 +15,6 @@
  */
 package com.github.atdi.gboot.jms;
 
-import javax.inject.Inject;
 import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -33,7 +32,6 @@ public abstract class GenericJmsTemplate implements JmsTemplate {
     private final Destination destination;
     private final Connection connection;
 
-    @Inject
     public GenericJmsTemplate(Session session, Destination destination, Connection connection) {
         this.session = session;
         this.destination = destination;
