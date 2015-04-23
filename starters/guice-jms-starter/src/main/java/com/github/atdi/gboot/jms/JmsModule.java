@@ -16,7 +16,6 @@
 package com.github.atdi.gboot.jms;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
 import javax.jms.Connection;
@@ -30,7 +29,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Guice JMS module.
@@ -43,29 +44,36 @@ public class JmsModule extends AbstractModule {
 
     private final Connection connection;
 
-    private JmsModule(Session session, Destination destination, Connection connection) {
-        this.destinations.put("", destination);
+    private JmsModule(Session session, Map<String, Destination> destinations, Connection connection) {
+        this.destinations.putAll(destinations);
         this.session = session;
         this.connection = connection;
     }
 
     protected void configure() {
-        bind(Destination.class).annotatedWith(Names.named("")).toInstance(destinations.get(""));
+        for (Map.Entry<String, Destination> entry : destinations.entrySet()) {
+            bind(Destination.class)
+                    .annotatedWith(Names.named(entry.getKey()))
+                    .toInstance(entry.getValue());
+            bind(JmsTemplate.class).annotatedWith(Names.named(entry.getKey()))
+                    .toInstance(new JmsTemplateImpl(session, entry.getValue(), connection));
+        }
         bind(Session.class).toInstance(session);
         bind(Connection.class).toInstance(connection);
     }
 
     public static class Builder {
-        private String queue;
+        private Set<String> queues = new HashSet<>();
+        private Set<String> topics = new HashSet<>();
         private Context context = null;
-        private MessageListener listener;
+        private Map<String, MessageListener> listeners = new HashMap<>();
         private ConnectionFactory connectionFactory;
         private boolean usingJNDI = false;
 
         public JmsModule buildModule() {
             try {
                 Session session;
-                Destination destination;
+                Map<String, Destination> destinations = new HashMap<>();
                 Connection connection;
                 if (usingJNDI) {
                     if (context == null)
@@ -73,20 +81,24 @@ public class JmsModule extends AbstractModule {
                     connectionFactory = (ConnectionFactory) context.lookup("ConnectionFactory");
                     connection = connectionFactory.createConnection();
                     session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                    destination = (Destination) context.lookup(this.queue);
+                    for(String queue : queues) {
+                        destinations.put(queue, (Destination) context.lookup(queue));
+                    }
                 } else {
                     connection = connectionFactory.createConnection();
                     session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                    destination = session.createQueue(queue);
+                    for(String queue : queues) {
+                        destinations.put(queue, session.createQueue(queue));
+                    }
                 }
 
-                if (listener != null) {
-                    MessageConsumer consumer = session.createConsumer(destination);
-                    consumer.setMessageListener(listener);
+                for (Map.Entry<String, MessageListener> entry : listeners.entrySet()) {
+                    MessageConsumer consumer = session.createConsumer(destinations.get(entry.getKey()));
+                    consumer.setMessageListener(entry.getValue());
                     connection.start();
                 }
 
-                return new JmsModule(session, destination, connection);
+                return new JmsModule(session, destinations, connection);
             } catch (JMSException e) {
                 throw new GBootJmsException("Could not connect to jms destination", e);
             } catch (NamingException e) {
@@ -99,24 +111,29 @@ public class JmsModule extends AbstractModule {
             return this;
         }
 
-        public Builder queue(String queue) {
-            this.queue = queue;
-            return this;
-        }
 
         public Builder context(Context context) {
             this.context = context;
             return this;
         }
 
-        public Builder withListener(MessageListener listener) {
-            this.listener = listener;
+        public Builder addListener(String key, MessageListener listener) {
+            this.listeners.put(key, listener);
             return this;
         }
 
         public Builder withConnectionFactory(ConnectionFactory cf) {
             this.connectionFactory = cf;
+            return this;
+        }
 
+        public Builder addQueue(String queue) {
+            this.queues.add(queue);
+            return this;
+        }
+
+        public Builder addTopic(String topic) {
+            this.topics.add(topic);
             return this;
         }
     }
