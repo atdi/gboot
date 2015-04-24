@@ -46,13 +46,8 @@ artifacts {
     published javadocJar
 }
 
-
-configurations {
-    all*.exclude group: 'org.eclipse.jetty'
-    all*.exclude group: 'io.undertow'
-}
-
 dependencies {
+    compile("javax.inject:javax.inject:$javaxInjectVersion")
     compile("com.google.inject:guice:$guiceVersion")
     //compile("javax:javaee-api:7.0")
     compile("javax.jms:javax.jms-api:2.0.1")

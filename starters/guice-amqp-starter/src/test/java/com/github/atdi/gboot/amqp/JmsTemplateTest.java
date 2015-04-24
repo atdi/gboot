@@ -12,7 +12,12 @@ public class JmsTemplateTest {
     @BeforeClass
     public static void setUp() throws Exception {
         factory = new ConnectionFactory();
-        factory.setUri("amqp://guest:guest@localhost:5672");
+        factory.setUsername("guest");
+        factory.setPassword("guest");
+        factory.setVirtualHost("/");
+        factory.setHost("localhost");
+        factory.setPort(5672);
+        factory.setAutomaticRecoveryEnabled(true);
     }
 
     @Test
@@ -21,7 +26,7 @@ public class JmsTemplateTest {
         Channel channel = connection.createChannel();
 
         channel.exchangeDeclare("amq.direct", "direct", true);
-        channel.queueDeclare("test", true, false, false, null);
+        channel.queueDeclareNoWait("test", true, false, false, null);
         channel.queueBind("test", "amq.direct", "test");
         byte[] messageBodyBytes = "Hello, world111!".getBytes();
         channel.basicPublish("amq.direct", "test", null, messageBodyBytes);

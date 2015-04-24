@@ -100,9 +100,9 @@ public class JmsModule extends AbstractModule {
 
                 return new JmsModule(session, destinations, connection);
             } catch (JMSException e) {
-                throw new GBootJmsException("Could not connect to ampq destination", e);
+                throw new GBootAmqpException("Could not connect to ampq destination", e);
             } catch (NamingException e) {
-                throw new GBootJmsException("Could not create jndi context", e);
+                throw new GBootAmqpException("Could not create jndi context", e);
             }
         }
 
