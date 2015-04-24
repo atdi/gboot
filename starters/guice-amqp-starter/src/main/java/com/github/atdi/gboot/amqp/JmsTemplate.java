@@ -13,15 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.atdi.gboot.ampq;
+package com.github.atdi.gboot.amqp;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.Session;
 
 /**
- * Message creator.
+ * Jms template interface.
  */
-public interface MessageCreator {
-    public Message createMessage(Session session) throws JMSException;
+public interface JmsTemplate extends AutoCloseable {
+
+    /**
+     * Put message on queue.
+     * @param messageCreator message creator
+     * @throws JMSException exception
+     */
+    public void send(MessageCreator messageCreator) throws JMSException;
+
+    /**
+     * Receive message.
+     * @return message
+     * @throws JMSException exception
+     */
+    public Message receive() throws JMSException;
+
 }

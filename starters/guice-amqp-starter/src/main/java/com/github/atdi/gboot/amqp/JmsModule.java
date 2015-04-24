@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.atdi.gboot.ampq;
+package com.github.atdi.gboot.amqp;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;

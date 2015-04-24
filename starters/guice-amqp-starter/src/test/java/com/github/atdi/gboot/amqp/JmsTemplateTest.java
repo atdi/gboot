@@ -1,4 +1,4 @@
-package com.github.atdi.gboot.ampq;
+package com.github.atdi.gboot.amqp;
 
 import com.rabbitmq.client.*;
 import org.junit.BeforeClass;
