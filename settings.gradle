@@ -22,6 +22,6 @@ rootProject.children.find { it.name == 'starters/guice-tomcat-jersey-starter' }.
 include 'starters/guice-undertow-jersey-starter'
 rootProject.children.find { it.name == 'starters/guice-undertow-jersey-starter' }.name = 'guice-undertow-jersey-starter'
 
-include 'starters/guice-jms-starter'
-rootProject.children.find { it.name == 'starters/guice-jms-starter' }.name = 'guice-jms-starter'
+include 'starters/guice-ampq-starter'
+rootProject.children.find { it.name == 'starters/guice-ampq-starter' }.name = 'guice-ampq-starter'
 
