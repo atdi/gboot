@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.atdi.gboot.jms;
+package com.github.atdi.gboot.ampq;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
@@ -100,7 +100,7 @@ public class JmsModule extends AbstractModule {
 
                 return new JmsModule(session, destinations, connection);
             } catch (JMSException e) {
-                throw new GBootJmsException("Could not connect to jms destination", e);
+                throw new GBootJmsException("Could not connect to ampq destination", e);
             } catch (NamingException e) {
                 throw new GBootJmsException("Could not create jndi context", e);
             }

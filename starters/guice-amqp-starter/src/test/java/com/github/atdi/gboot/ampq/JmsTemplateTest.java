@@ -1,12 +1,9 @@
-package com.github.atdi.gboot.jms;
+package com.github.atdi.gboot.ampq;
 
 import com.rabbitmq.client.*;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import com.rabbitmq.client.Connection;
-
-import static org.junit.Assert.*;
 
 public class JmsTemplateTest {
 

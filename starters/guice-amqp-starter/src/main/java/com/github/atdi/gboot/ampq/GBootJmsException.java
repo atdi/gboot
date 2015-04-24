@@ -1,6 +1,4 @@
-package com.github.atdi.gboot.jms;
-
-import javax.jms.JMSException;
+package com.github.atdi.gboot.ampq;
 
 public class GBootJmsException extends RuntimeException {
     public GBootJmsException(String message, Throwable e) {
